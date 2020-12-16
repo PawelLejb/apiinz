@@ -19,7 +19,7 @@ class CheckRole
     {
 
         $validator = Validator::make($request->all(), [
-            'VerySecureKey' => 'required|abcd']);
+            'VerySecureKey' => 'required|min:4|max:4']);
         if ($validator->fails()) {
             return response()->json([
                 "message" => "Nie masz dostępu"
