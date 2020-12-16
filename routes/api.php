@@ -14,158 +14,148 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/register', [AuthController::class, 'register']);
+Route::post('{VerySecureKey}/login', [AuthController::class, 'login'])->where('VerySecureKey', 'abcd');
+Route::post('{VerySecureKey}/register', [AuthController::class, 'register'])->where('VerySecureKey', 'abcd');
 
 
 Route::group([
     'middleware'=>'jwt.auth'
-],function(){
+    ],function(){
 
     //autoryzacja
-    Route::post('refresh', [AuthController::class,'refresh']);
-    Route::post('logout', [AuthController::class,'logout']);
+    Route::post('/{VerySecureKey}/refresh', [AuthController::class,'refresh'])->where('/VerySecureKey', 'abcd');
+    Route::post('{VerySecureKey}/logout', [AuthController::class,'logout'])->where('VerySecureKey', 'abcd');
     //
 
     // Dane uzytkownika
-    Route::get('users', [UserController::class,'getUser']);
-    Route::put('users', [UserController::class,'updateUser']);
-    Route::delete('users',[UserController::class,'deleteUser']);
+    Route::get('{VerySecureKey}/users', [UserController::class,'getUser'])->where('VerySecureKey', 'abcd');
+    Route::put('{VerySecureKey}/users', [UserController::class,'updateUser'])->where('VerySecureKey', 'abcd');
+    Route::delete('VerySecureKey}/users',[UserController::class,'deleteUser'])->where('VerySecureKey', 'abcd');
     //
 
     // Notatki uzytkownika
-    Route::get('userNotes', [UserNoteController::class, 'getAllUserNotes']);
-    Route::get('userNote/{id}', [UserNoteController::class,'getUserNote']);
-    Route::post('userNotes', [UserNoteController::class,'createUserNote']);
-    Route::put('userNotes/{id}', [UserNoteController::class,'updateUserNote']);
-    Route::delete('userNotes/{id}',[UserNoteController::class,'deleteUserNote']);
+    Route::get('{VerySecureKey}/userNotes', [UserNoteController::class, 'getAllUserNotes'])->where('VerySecureKey', 'abcd');
+    Route::get('{VerySecureKey}/userNote/{id}', [UserNoteController::class,'getUserNote'])->where('VerySecureKey', 'abcd');
+    Route::post('{VerySecureKey}/userNotes', [UserNoteController::class,'createUserNote'])->where('VerySecureKey', 'abcd');
+    Route::put('{VerySecureKey}/userNotes/{id}', [UserNoteController::class,'updateUserNote'])->where('VerySecureKey', 'abcd');
+    Route::delete('VerySecureKey}/userNotes/{id}',[UserNoteController::class,'deleteUserNote'])->where('VerySecureKey', 'abcd');
     //pliki do notatek
-    Route::get('userNotesData', [UserNoteController::class, 'getAllUserNotesData']);
-    Route::get('userNotesData/{id}', [UserNoteController::class,'getUserNoteData']);
-    Route::post('userNotesData/{id}', [UserNoteController::class,'addUserNoteData']);
-    Route::put('userNotesData/{id}', [UserNoteController::class,'updateUserNoteData']);
-    Route::delete('userNotesData/{id}',[UserNoteController::class,'deleteUserNoteData']);
+    Route::get('{VerySecureKey}/userNotesData', [UserNoteController::class, 'getAllUserNotesData'])->where('VerySecureKey', 'abcd');
+    Route::get('{VerySecureKey}/userNotesData/{id}', [UserNoteController::class,'getUserNoteData'])->where('VerySecureKey', 'abcd');
+    Route::post('{VerySecureKey}/userNotesData/{id}', [UserNoteController::class,'addUserNoteData'])->where('VerySecureKey', 'abcd');
+    Route::put('{VerySecureKey}/userNotesData/{id}', [UserNoteController::class,'updateUserNoteData'])->where('VerySecureKey', 'abcd');
+    Route::delete('VerySecureKey}/userNotesData/{id}',[UserNoteController::class,'deleteUserNoteData'])->where('VerySecureKey', 'abcd');
     //
 
     //zdjecia uzytkownika
-    Route::get('userPictures', [UserPictureController::class, 'getAllPictures']);
-    Route::get('userPicture/{id}', [UserPictureController::class,'getPicture']);
-    Route::post('userPictures', [UserPictureController::class,'addPicture']);
-    Route::put('userPictures/{id}', [UserPictureController::class,'updatePicture']);
-    Route::delete('userPictures/{id}',[UserPictureController::class,'deletePicture']);
+    Route::get('{VerySecureKey}/userPictures', [UserPictureController::class, 'getAllPictures'])->where('VerySecureKey', 'abcd');
+    Route::get('{VerySecureKey}/userPicture/{id}', [UserPictureController::class,'getPicture'])->where('VerySecureKey', 'abcd');
+    Route::post('{VerySecureKey}/userPictures', [UserPictureController::class,'addPicture'])->where('VerySecureKey', 'abcd');
+    Route::put('{VerySecureKey}/userPictures/{id}', [UserPictureController::class,'updatePicture'])->where('VerySecureKey', 'abcd');
+    Route::delete('VerySecureKey}/userPictures/{id}',[UserPictureController::class,'deletePicture'])->where('VerySecureKey', 'abcd');
     //
 
     //wydarzenia
-    Route::get('userEvents/{id}', [EventController::class,'getEvent']);
-    Route::get('userEvents', [EventController::class,'getAllEvents']);
-    Route::post('userEvents', [EventController::class,'createEvent']);
-    Route::put('userEvents/{id}', [EventController::class,'updateEvent']);
-    Route::delete('userEvents/{id}', [EventController::class,'deleteEvent']);
+    Route::get('{VerySecureKey}/userEvents/{id}', [EventController::class,'getEvent'])->where('VerySecureKey', 'abcd');
+    Route::get('{VerySecureKey}/userEvents', [EventController::class,'getAllEvents'])->where('VerySecureKey', 'abcd');
+    Route::post('{VerySecureKey}/userEvents', [EventController::class,'createEvent'])->where('VerySecureKey', 'abcd');
+    Route::put('{VerySecureKey}/userEvents/{id}', [EventController::class,'updateEvent'])->where('VerySecureKey', 'abcd');
+    Route::delete('VerySecureKey}/userEvents/{id}', [EventController::class,'deleteEvent'])->where('VerySecureKey', 'abcd');
     //daty wydarzeń
-    Route::post('userEventsDate/{id}', [EventController::class,'createEventDate']);
-    Route::delete('userEventsDate/{id}', [EventController::class,'deleteEventDate']);
-    Route::put('userEventsDate/{id}', [EventController::class,'updateEventDate']);
+    Route::post('{VerySecureKey}/userEventsDate/{id}', [EventController::class,'createEventDate'])->where('VerySecureKey', 'abcd');
+    Route::delete('VerySecureKey}/userEventsDate/{id}', [EventController::class,'deleteEventDate'])->where('VerySecureKey', 'abcd');
+    Route::put('{VerySecureKey}/userEventsDate/{id}', [EventController::class,'updateEventDate'])->where('VerySecureKey', 'abcd');
     //
 
 
 
 
     // Notatki przedmiotu
-    Route::get('activityNotes/{activityId}', [ActivityNoteController::class, 'getAllActivityNotes']);
-    Route::get('activityNote/{id}', [ActivityNoteController::class,'getActivityNote']);
-    Route::post('activityNotes/{activityId}', [ActivityNoteController::class,'createActivityNote']);
-    Route::put('activityNotes/{id}', [ActivityNoteController::class,'updateActivityNote']);
-    Route::delete('activityNotes/{id}',[ActivityNoteController::class,'deletcomment_dataseActivityNote']);
+    Route::get('{VerySecureKey}/activityNotes/{activityId}', [ActivityNoteController::class, 'getAllActivityNotes'])->where('VerySecureKey', 'abcd');
+    Route::get('{VerySecureKey}/activityNote/{id}', [ActivityNoteController::class,'getActivityNote'])->where('VerySecureKey', 'abcd');
+    Route::post('{VerySecureKey}/activityNotes/{activityId}', [ActivityNoteController::class,'createActivityNote'])->where('VerySecureKey', 'abcd');
+    Route::put('{VerySecureKey}/activityNotes/{id}', [ActivityNoteController::class,'updateActivityNote'])->where('VerySecureKey', 'abcd');
+    Route::delete('VerySecureKey}/activityNotes/{id}',[ActivityNoteController::class,'deletcomment_dataseActivityNote'])->where('VerySecureKey', 'abcd');
     //pliki do notatek
-    Route::post('activityNotesData/{id}', [ActivityNoteController::class,'addActivityNoteData']);
-    Route::put('activityNotesData/{id}', [ActivityNoteController::class,'updateActivityNoteData']);
-    Route::delete('activityNotesData/{id}',[ActivityNoteController::class,'deleteActivityNoteData']);
+    Route::post('{VerySecureKey}/activityNotesData/{id}', [ActivityNoteController::class,'addActivityNoteData'])->where('VerySecureKey', 'abcd');
+    Route::put('{VerySecureKey}/activityNotesData/{id}', [ActivityNoteController::class,'updateActivityNoteData'])->where('VerySecureKey', 'abcd');
+    Route::delete('VerySecureKey}/activityNotesData/{id}',[ActivityNoteController::class,'deleteActivityNoteData'])->where('VerySecureKey', 'abcd');
     //
 
     //PLAN ZAJĘĆ
-    Route::get('plans', [PlanController::class, 'getAllPlans']);
-  //  Route::get('plan/{id}', [PlanController::class,'getPlan']);
-    Route::post('plans', [PlanController::class,'createPlan']);
-    Route::put('plans/{id}', [PlanController::class,'updatePlan']);
-    Route::delete('plans/{id}',[PlanController::class,'deletePlan']);
+    Route::get('{VerySecureKey}/plans', [PlanController::class, 'getAllPlans'])->where('VerySecureKey', 'abcd');
+  //  Route::get('{VerySecureKey}/plan/{id}', [PlanController::class,'getPlan'])->where('VerySecureKey', 'abcd');
+    Route::post('{VerySecureKey}/plans', [PlanController::class,'createPlan'])->where('VerySecureKey', 'abcd');
+    Route::put('{VerySecureKey}/plans/{id}', [PlanController::class,'updatePlan'])->where('VerySecureKey', 'abcd');
+    Route::delete('VerySecureKey}/plans/{id}',[PlanController::class,'deletePlan'])->where('VerySecureKey', 'abcd');
     //
     //przedmioty
-    Route::get('activity/{id}/{planId}', [ActivityController::class,'getActivity']);
-    Route::get('activities/{planId}', [ActivityController::class,'getAllActivities']);
-    Route::post('activities/{planId}', [ActivityController::class,'createActivity']);
-    Route::put('activities/{id}', [ActivityController::class,'updateActivity']);
-    Route::delete('activities/{id}', [ActivityController::class,'deleteActivity']);
+    Route::get('{VerySecureKey}/activity/{id}/{planId}', [ActivityController::class,'getActivity'])->where('VerySecureKey', 'abcd');
+    Route::get('{VerySecureKey}/activities/{planId}', [ActivityController::class,'getAllActivities'])->where('VerySecureKey', 'abcd');
+    Route::post('{VerySecureKey}/activities/{planId}', [ActivityController::class,'createActivity'])->where('VerySecureKey', 'abcd');
+    Route::put('{VerySecureKey}/activities/{id}', [ActivityController::class,'updateActivity'])->where('VerySecureKey', 'abcd');
+    Route::delete('VerySecureKey}/activities/{id}', [ActivityController::class,'deleteActivity'])->where('VerySecureKey', 'abcd');
     //daty przedmiotów
-    Route::post('activitiesDate/{planId}/{activityId}', [ActivityController::class,'createActivityDate']);
-    Route::delete('activitiesDate/{id}', [ActivityController::class,'deleteActivityDate']);
-    Route::put('activitiesDate/{id}', [ActivityController::class,'updateActivityDate']);
+    Route::post('{VerySecureKey}/activitiesDate/{planId}/{activityId}', [ActivityController::class,'createActivityDate'])->where('VerySecureKey', 'abcd');
+    Route::delete('VerySecureKey}/activitiesDate/{id}', [ActivityController::class,'deleteActivityDate'])->where('VerySecureKey', 'abcd');
+    Route::put('{VerySecureKey}/activitiesDate/{id}', [ActivityController::class,'updateActivityDate'])->where('VerySecureKey', 'abcd');
     //
     //GRUPY
-    Route::get('group', [GroupController::class,'getGroups']);
-    Route::get('group/{groupId}', [GroupController::class,'getGroup']);
-    Route::get('groupUsers/{groupId}', [GroupController::class,'getUsersGroup']);
-    Route::get('groupUser/{userId}', [GroupController::class,'getUserGroup']);
-    Route::post('group', [GroupController::class,'createGroup']);
-    Route::post('joinGroup/{groupId}', [GroupController::class,'joinGroup']);
-    Route::post('groupUser/{userId}/{groupId}', [GroupController::class,'addUserGroup']);
-    Route::delete('groupUser/{userId}/{groupId}', [GroupController::class,'deleteUserGroup']);
-    Route::delete('group/{groupId}', [GroupController::class,'deleteGroup']);
-    Route::put('groupUser/{userId}/{groupId}/{role}', [GroupController::class,'updateUserGroup']);
-    Route::put('group/{groupId}', [GroupController::class,'updateGroup']);
+    Route::get('{VerySecureKey}/group', [GroupController::class,'getGroups'])->where('VerySecureKey', 'abcd');
+    Route::get('{VerySecureKey}/group/{groupId}', [GroupController::class,'getGroup'])->where('VerySecureKey', 'abcd');
+    Route::get('{VerySecureKey}/groupUsers/{groupId}', [GroupController::class,'getUsersGroup'])->where('VerySecureKey', 'abcd');
+    Route::get('{VerySecureKey}/groupUser/{userId}', [GroupController::class,'getUserGroup'])->where('VerySecureKey', 'abcd');
+    Route::post('{VerySecureKey}/group', [GroupController::class,'createGroup'])->where('VerySecureKey', 'abcd');
+    Route::post('{VerySecureKey}/joinGroup/{groupId}', [GroupController::class,'joinGroup'])->where('VerySecureKey', 'abcd');
+    Route::post('{VerySecureKey}/groupUser/{userId}/{groupId}', [GroupController::class,'addUserGroup'])->where('VerySecureKey', 'abcd');
+    Route::delete('VerySecureKey}/groupUser/{userId}/{groupId}', [GroupController::class,'deleteUserGroup'])->where('VerySecureKey', 'abcd');
+    Route::delete('VerySecureKey}/group/{groupId}', [GroupController::class,'deleteGroup'])->where('VerySecureKey', 'abcd');
+    Route::put('{VerySecureKey}/groupUser/{userId}/{groupId}/{role}', [GroupController::class,'updateUserGroup'])->where('VerySecureKey', 'abcd');
+    Route::put('{VerySecureKey}/group/{groupId}', [GroupController::class,'updateGroup'])->where('VerySecureKey', 'abcd');
     //
     //POSTY
-    Route::post('post/{groupId}', [PostController::class,'createPost']);
-    Route::put('post/{groupId}/{postId}', [PostController::class,'updatePost']);
-    Route::delete('post/{groupId}/{postId}', [PostController::class,'deletePost']);
-    Route::get('post/{groupId}/{postId}', [PostController::class,'getPost']);
-    Route::get('posts/{groupId}', [PostController::class,'getPosts']);
+    Route::post('{VerySecureKey}/post/{groupId}', [PostController::class,'createPost'])->where('VerySecureKey', 'abcd');
+    Route::put('{VerySecureKey}/post/{groupId}/{postId}', [PostController::class,'updatePost'])->where('VerySecureKey', 'abcd');
+    Route::delete('VerySecureKey}/post/{groupId}/{postId}', [PostController::class,'deletePost'])->where('VerySecureKey', 'abcd');
+    Route::get('{VerySecureKey}/post/{groupId}/{postId}', [PostController::class,'getPost'])->where('VerySecureKey', 'abcd');
+    Route::get('{VerySecureKey}/posts/{groupId}', [PostController::class,'getPosts'])->where('VerySecureKey', 'abcd');
     //
     //tagi posta
-    Route::post('postTag/{groupId}/{postId}', [PostController::class,'createTag']);
-    Route::delete('postTag/{groupId}/{postId}/{tagId}', [PostController::class,'deleteTag']);
-    Route::get('postTags/{postId}', [PostController::class,'getPostTags']);
-    Route::get('tag/{groupId}/{postTagId}', [PostController::class,'getAllPostsWithTags']);
-    Route::get('tags/{groupId}', [PostController::class,'getAllTags']);
+    Route::post('{VerySecureKey}/postTag/{groupId}/{postId}', [PostController::class,'createTag'])->where('VerySecureKey', 'abcd');
+    Route::delete('VerySecureKey}/postTag/{groupId}/{postId}/{tagId}', [PostController::class,'deleteTag'])->where('VerySecureKey', 'abcd');
+    Route::get('{VerySecureKey}/postTags/{postId}', [PostController::class,'getPostTags'])->where('VerySecureKey', 'abcd');
+    Route::get('{VerySecureKey}/tag/{groupId}/{postTagId}', [PostController::class,'getAllPostsWithTags'])->where('VerySecureKey', 'abcd');
+    Route::get('{VerySecureKey}/tags/{groupId}', [PostController::class,'getAllTags'])->where('VerySecureKey', 'abcd');
     //
 
     //pliki posta
-    Route::post('postData/{groupId}/{postId}', [PostController::class,'createPostData']);
-    Route::delete('postData/{groupId}/{postId}/{postDataId}', [PostController::class,'deletePostData']);
-    Route::put('postData/{groupId}/{postId}/{postDataId}', [PostController::class,'updatePostData']);
-    Route::get('postData/{groupId}/{postId}/{postDataId}', [PostController::class,'getPostData']);
-    Route::get('postData/{groupId}/{postId}', [PostController::class,'getPostDatas']);
+    Route::post('{VerySecureKey}/postData/{groupId}/{postId}', [PostController::class,'createPostData'])->where('VerySecureKey', 'abcd');
+    Route::delete('VerySecureKey}/postData/{groupId}/{postId}/{postDataId}', [PostController::class,'deletePostData'])->where('VerySecureKey', 'abcd');
+    Route::put('{VerySecureKey}/postData/{groupId}/{postId}/{postDataId}', [PostController::class,'updatePostData'])->where('VerySecureKey', 'abcd');
+    Route::get('{VerySecureKey}/postData/{groupId}/{postId}/{postDataId}', [PostController::class,'getPostData'])->where('VerySecureKey', 'abcd');
+    Route::get('{VerySecureKey}/postData/{groupId}/{postId}', [PostController::class,'getPostDatas'])->where('VerySecureKey', 'abcd');
     //
 
 
     //komentarz
-    Route::post('comment/{groupId}/{postId}', [CommentController::class,'createComment']);
-    Route::put('comment/{groupId}/{commentId}', [CommentController::class,'updateComment']);
-    Route::delete('comment/{groupId}/{commentId}', [CommentController::class,'deleteComment']);
-    Route::get('comments/{groupId}/{postId}', [CommentController::class,'getComments']);
+    Route::post('{VerySecureKey}/comment/{groupId}/{postId}', [CommentController::class,'createComment'])->where('VerySecureKey', 'abcd');
+    Route::put('{VerySecureKey}/comment/{groupId}/{commentId}', [CommentController::class,'updateComment'])->where('VerySecureKey', 'abcd');
+    Route::delete('VerySecureKey}/comment/{groupId}/{commentId}', [CommentController::class,'deleteComment'])->where('VerySecureKey', 'abcd');
+    Route::get('{VerySecureKey}/comments/{groupId}/{postId}', [CommentController::class,'getComments'])->where('VerySecureKey', 'abcd');
     //
 
     //pliki komentarz
-    Route::post('commentData/{groupId}/{commentId}', [CommentController::class,'createCommentData']);
-    Route::delete('commentData/{groupId}/{commentId}/{commentDataId}', [CommentController::class,'deleteCommentData']);
-    Route::put('commentData/{groupId}/{commentId}/{commentDataId}', [CommentController::class,'updateCommentData']);
-    Route::get('commentData/{groupId}/{commentId}/{commentDataId}', [CommentController::class,'getCommentData']);
-    Route::get('commentDatas/{groupId}/{commentId}', [CommentController::class,'getCommentDatas']);
+    Route::post('{VerySecureKey}/commentData/{groupId}/{commentId}', [CommentController::class,'createCommentData'])->where('VerySecureKey', 'abcd');
+    Route::delete('VerySecureKey}/commentData/{groupId}/{commentId}/{commentDataId}', [CommentController::class,'deleteCommentData'])->where('VerySecureKey', 'abcd');
+    Route::put('{VerySecureKey}/commentData/{groupId}/{commentId}/{commentDataId}', [CommentController::class,'updateCommentData'])->where('VerySecureKey', 'abcd');
+    Route::get('{VerySecureKey}/commentData/{groupId}/{commentId}/{commentDataId}', [CommentController::class,'getCommentData'])->where('VerySecureKey', 'abcd');
+    Route::get('{VerySecureKey}/commentDatas/{groupId}/{commentId}', [CommentController::class,'getCommentDatas'])->where('VerySecureKey', 'abcd');
     //
 
 
