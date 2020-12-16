@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Validator;
 use Illuminate\Http\Request;
 
 class CheckRole
@@ -11,7 +12,7 @@ class CheckRole
     {
 
         $validator = Validator::make($request->all(), [
-            'VerySecureKey' => 'required']);
+            'VerySecureKey' => 'required|abcd']);
         if ($validator->fails()) {
             return response()->json([
                 "message" => "Nie masz dostępu"
