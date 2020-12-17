@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\models\Event;
-use App\models\Event_date;
+use App\Models\Event;
+use App\Models\Event_date;
 use DB;
 use Validator;
 class EventController extends Controller
