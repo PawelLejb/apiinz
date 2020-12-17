@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\models\User_picture;
+use App\Models\User_picture;
 use JWTAuth;
 use Validator;
 use DB;
