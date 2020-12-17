@@ -12,7 +12,7 @@ use App\Models\Comment;
 use App\Models\Post_data;
 use App\Models\Post_tag;
 use Validator;
-use App\groups;
+use App\Groups;
 use Illuminate\Support\Facades\Gate;
 use DB;
 class CommentController extends Controller
