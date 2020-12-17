@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\models\Plan;
+use App\Models\Plan;
 use Illuminate\Http\Request;
 use DB;
 use Validator;
