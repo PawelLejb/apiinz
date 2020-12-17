@@ -7,7 +7,7 @@ use App\Models\User;
 use App\Models\Group_user;
 use App\Models\Group;
 use Validator;
-use App\groups;
+use App\Groups;
 use Illuminate\Support\Facades\Gate;
 use DB;
 class GroupController extends Controller
