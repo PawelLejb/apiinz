@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\models\Activity;
-use App\models\Activity_date;
+use App\Models\Activity;
+use App\Models\Activity_date;
 use DB;
 use Validator;
 use Illuminate\Http\Request;
