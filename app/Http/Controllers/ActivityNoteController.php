@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\models\Activity_note;
-use App\models\Activity_data;
+use App\Models\Activity_note;
+use App\Models\Activity_data;
 use DB;
 class ActivityNoteController extends Controller
 
