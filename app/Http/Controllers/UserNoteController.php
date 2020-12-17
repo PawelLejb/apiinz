@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\models\User_note;
-use App\models\User_data;
+use App\Models\User_note;
+use App\Models\User_data;
 use DB;
 class UserNoteController extends Controller
 {
