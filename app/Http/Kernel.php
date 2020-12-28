@@ -20,7 +20,7 @@ class  Kernel extends HttpKernel
         \Fruitcake\Cors\HandleCors::class,
         \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
-        \App\Http\Middleware\CheckRole::class,
+       // \App\Http\Middleware\CheckRole::class,
         \App\Http\Middleware\TrimStrings::class,
         
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
@@ -68,5 +68,6 @@ class  Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'jwt.auth' => \Tymon\JWTAuth\Middleware\GetUserFromToken::class,
         'jwt.refresh' => \Tymon\JWTAuth\Middleware\RefreshToken::class,
+        'VerySecureKey'=>\App\Http\Middleware\CheckRole::class,
         ];
 }
