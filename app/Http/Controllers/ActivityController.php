@@ -51,7 +51,7 @@ class ActivityController extends Controller
             ->leftjoin('activity_dates', 'activities.id', '=', 'Activities_idActivities')
             ->select('activities.id', 'activities.name', 'activities.place', 'activities.created_at',
                 'activities.updated_at', 'activities.colour', 'activities.description', 'activities.Plans_idPlan', 'activity_dates.id AS activity_dates.id', 'activity_dates.start_date', 'activity_dates.end_date',
-              'activity_dates.created_at AS activity_dates.created', 'activity_dates.updated_at AS activity_dates.updated')
+           'activity_dates.periodicity',   'activity_dates.created_at AS activity_dates.created', 'activity_dates.updated_at AS activity_dates.updated')
             ->where('Plans_idPlan', '=', $planId)
             ->orderBy('start_date')
             ->get()->toJson(JSON_PRETTY_PRINT);
