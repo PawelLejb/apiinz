@@ -218,7 +218,6 @@ class ActivityController extends Controller
     }
 
     public function updateActivityDate(Request $request, $id)
-     public function updateActivityDate(Request $request, $id)
     {
         $activity_date = Activity_date::where('id', $id);
         $periodicity=DB::table('activity_dates')
