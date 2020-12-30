@@ -168,7 +168,7 @@ class ActivityController extends Controller
             }
             if($request->periodicity==1){
             while ($endPlanDate->greaterThan($request->end_date)) {
-                $constant_values_array = array('Activities_idActivities' => $activityId, 'periodicityDatesId' => $periodicityDatesId
+                $constant_values_array = array('Activities_idActivities' => $activityId, 'periodicityDatesId' => '11'
                 , 'start_date' => $request->start_date
                 , 'end_date' => $request->end_date
            
@@ -185,7 +185,7 @@ class ActivityController extends Controller
                     'activity' => $activityDate
                 ], 201);
             }
-        $constant_values_array = array('Activities_idActivities' => $activityId , 'periodicityDatesId' => $periodicityDatesId
+        $constant_values_array = array('Activities_idActivities' => $activityId , 'periodicityDatesId' => '11'
         , 'start_date' => $request->start_date
         , 'end_date' => $request->end_date
         , 'periodicity' => $request->periodicity);
