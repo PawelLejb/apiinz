@@ -170,7 +170,7 @@ class ActivityController extends Controller
             if($request->periodicity==1){
             while ($endPlanDate->greaterThan($request->end_date)) {
                 $constant_values_array = array('Activities_idActivities' => $activityId
-                , 'periodicityDatesId' => ''
+                , 'periodicityDatesId' => $activityId
                 , 'start_date' => $request->start_date
                 , 'end_date' => $request->end_date
            
