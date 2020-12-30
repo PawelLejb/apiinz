@@ -13,6 +13,7 @@ class Activity_date extends Model
         'start_date',
         'end_date',
         'Activities_idActivities',
+        'periodicityDatesId',
          'periodicity'
 
     ];
