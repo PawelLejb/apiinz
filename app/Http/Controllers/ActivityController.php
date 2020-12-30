@@ -51,7 +51,7 @@ class ActivityController extends Controller
             ->leftjoin('activity_dates', 'activities.id', '=', 'Activities_idActivities')
             ->select('activities.id', 'activities.name', 'activities.place', 'activities.created_at',
                 'activities.updated_at', 'activities.colour', 'activities.description', 'activities.Plans_idPlan', 'activity_dates.id AS activity_dates.id', 'activity_dates.start_date', 'activity_dates.end_date',
-           'activity_dates.periodicity',   'activity_dates.created_at AS activity_dates.created', 'activity_dates.updated_at AS activity_dates.updated','activity_dates.Activities_idActivities AS ActivityDateid')
+           'activity_dates.periodicity',   'activity_dates.created_at AS activity_dates.created', 'activity_dates.updated_at AS activity_dates.updated','activity_dates.periodicityDatesId AS periodicityDatesId')
             ->where('Plans_idPlan', '=', $planId)
             ->orderBy('start_date')
             ->get()->toJson(JSON_PRETTY_PRINT);
@@ -66,7 +66,7 @@ class ActivityController extends Controller
             $activity_dates = DB::table('activities')
                 ->leftjoin('activity_dates', 'activities.id', '=', 'Activities_idActivities')
                 ->select('activities.id', 'activities.name', 'activities.place', 'activities.created_at', 'activities.updated_at', 'activities.colour', 'activities.description', 'activities.Plans_idPlan', 'activity_dates.periodicity'
-                    , 'activity_dates.id AS activity_dates.id', 'activity_dates.start_date', 'activity_dates.end_date', 'activity_dates.created_at AS activity_dates.created', 'activity_dates.updated_at AS activity_dates.updated','activity_dates.Activities_idActivities AS ActivityDateid')
+                    , 'activity_dates.id AS activity_dates.id', 'activity_dates.start_date', 'activity_dates.end_date', 'activity_dates.created_at AS activity_dates.created', 'activity_dates.updated_at AS activity_dates.updated','activity_dates.periodicityDatesId AS periodicityDatesId')
                 ->where('Plans_idPlan', '=', $planId)
                 ->where('activities.id', '=', $id)
                 ->orderBy('start_date')
@@ -149,6 +149,7 @@ class ActivityController extends Controller
             ->where('plans.Users_idUser','=',$user->id)
             ->where('activities.Plans_idPlan','=',$planId)
             ->value('plans.start_date');
+         $periodicityDatesId=Activity_date::max('periodicityDatesId')+1;
         $endPlanDate = Carbon::createFromFormat('Y-m-d H:i',$endPlanDate.' 00:00')->addDays(1);
         $startPlanDate = Carbon::createFromFormat('Y-m-d H:i',$startPlanDate.' 00:00')->addDays(-1);
 
@@ -168,6 +169,7 @@ class ActivityController extends Controller
                 $constant_values_array = array('Activities_idActivities' => $activityId
                 , 'start_date' => $request->start_date
                 , 'end_date' => $request->end_date
+                , 'periodicityDatesId'=> $periodicityDatesId
                 , 'periodicity' => $request->periodicity);
                 $activityDate = Activity_date::create(array_merge(
                     $constant_values_array,
@@ -184,6 +186,7 @@ class ActivityController extends Controller
         $constant_values_array = array('Activities_idActivities' => $activityId
         , 'start_date' => $request->start_date
         , 'end_date' => $request->end_date
+        , 'periodicityDatesId'=> $periodicityDatesId
         , 'periodicity' => $request->periodicity);
         $activityDate = Activity_date::create(array_merge(
             $constant_values_array,
