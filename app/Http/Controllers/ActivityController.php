@@ -151,7 +151,7 @@ class ActivityController extends Controller
             ->value('plans.start_date');
          $periodicityDatesId = DB::table('activity_dates')->max('periodicityDatesId');
         $periodicityDatesId=$periodicityDatesId+1;
-        return $periodicityDatesId;
+       // return $periodicityDatesId;
         $endPlanDate = Carbon::createFromFormat('Y-m-d H:i',$endPlanDate.' 00:00')->addDays(1);
         $startPlanDate = Carbon::createFromFormat('Y-m-d H:i',$startPlanDate.' 00:00')->addDays(-1);
 
@@ -171,7 +171,7 @@ class ActivityController extends Controller
                 $constant_values_array = array('Activities_idActivities' => $activityId
                 , 'start_date' => $request->start_date
                 , 'end_date' => $request->end_date
-                , 'periodicityDatesId'=> $periodicityDatesId
+                , 'periodicityDatesId' => $periodicityDatesId
                 , 'periodicity' => $request->periodicity);
                 $activityDate = Activity_date::create(array_merge(
                     $constant_values_array,
@@ -188,7 +188,7 @@ class ActivityController extends Controller
         $constant_values_array = array('Activities_idActivities' => $activityId
         , 'start_date' => $request->start_date
         , 'end_date' => $request->end_date
-        , 'periodicityDatesId'=> $periodicityDatesId
+        , 'periodicityDatesId' => $periodicityDatesId
         , 'periodicity' => $request->periodicity);
         $activityDate = Activity_date::create(array_merge(
             $constant_values_array,
