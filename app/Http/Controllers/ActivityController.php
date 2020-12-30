@@ -149,7 +149,8 @@ class ActivityController extends Controller
             ->where('plans.Users_idUser','=',$user->id)
             ->where('activities.Plans_idPlan','=',$planId)
             ->value('plans.start_date');
-         $periodicityDatesId=Activity_date::max('periodicityDatesId')+1;
+         $periodicityDatesId = DB::table('activity_dates')->max('periodicityDatesId');
+        $periodicityDatesId=$periodicityDatesId+1;
         $endPlanDate = Carbon::createFromFormat('Y-m-d H:i',$endPlanDate.' 00:00')->addDays(1);
         $startPlanDate = Carbon::createFromFormat('Y-m-d H:i',$startPlanDate.' 00:00')->addDays(-1);
 
