@@ -218,8 +218,40 @@ class ActivityController extends Controller
     }
 
     public function updateActivityDate(Request $request, $id)
+     public function updateActivityDate(Request $request, $id)
     {
         $activity_date = Activity_date::where('id', $id);
+        $periodicity=DB::table('activity_dates')
+            ->where('id','=', $id)
+            ->value('periodicity');
+        $periodicityDatesId=DB::table('activity_dates')
+            ->where('id','=', $id)
+            ->value('periodicityDatesId');
+        if($periodicity=='1'){
+            if (Activity_date::where('periodicityDatesId', $periodicityDatesId)->exists()) {
+                $validator = Validator::make($request->all(), [
+                    'start_date' => '',
+                    'end_date' => 'after_or_equal:start_date',
+
+
+                ]);
+                if ($validator->fails()) {
+                    return response()->json($validator->errors()->toJson(), 400);
+                }
+
+                $activity_date->update($request->all());
+                return response()->json([
+                    'message' => 'Udało się zmodyfikować dane.',
+                    'event_date' => $activity_date
+                ], 201);
+
+            } else {
+                return response()->json([
+                    "message" => "Nie znaleziono daty"
+                ], 404);
+
+            }
+        }
         if (Activity_date::where('id', $id)->exists()) {
             $validator = Validator::make($request->all(), [
                 'start_date' => '',
