@@ -188,7 +188,6 @@ class ActivityController extends Controller
         $constant_values_array = array('Activities_idActivities' => $activityId , 'periodicityDatesId' => $periodicityDatesId
         , 'start_date' => $request->start_date
         , 'end_date' => $request->end_date
-        , 'periodicityDatesId' => $periodicityDatesId
         , 'periodicity' => $request->periodicity);
         $activityDate = Activity_date::create(array_merge(
             $constant_values_array,
