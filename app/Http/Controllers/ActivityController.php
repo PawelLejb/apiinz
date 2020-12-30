@@ -160,6 +160,7 @@ class ActivityController extends Controller
                 'end_date' => 'required|after_or_equal:start_date|before_or_equal:'.$endPlanDate,
                 'periodicity' => 'required|min:0|max:1',
                 'Activities_idActivities' => '',
+                'periodicityDatesId' => '',
             ]);
         $request->start_date=$request->start_date = Carbon::createFromFormat('Y-m-d H:i',$request->start_date);
         $request->end_date=$request->end_date = Carbon::createFromFormat('Y-m-d H:i',$request->end_date);
