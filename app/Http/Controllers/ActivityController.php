@@ -237,7 +237,7 @@ class ActivityController extends Controller
                 if ($validator->fails()) {
                     return response()->json($validator->errors()->toJson(), 400);
                 }
-                ItemTable::where('periodicityDatesId', '=',$periodicityDatesId)
+                Activity_date::where('periodicityDatesId', '=',$periodicityDatesId)
                 ->update($request->all());
                 //$activity_date->update($request->all());
                 return response()->json([
