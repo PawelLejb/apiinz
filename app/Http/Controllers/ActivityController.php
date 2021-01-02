@@ -370,7 +370,7 @@ class ActivityController extends Controller
             ->value('periodicityDatesId');
 
         if (Activity_date::where('periodicityDatesId', $periodicityDatesId)->exists()) {
-            $activity_date = Activity_date::find('periodicityDatesId','=',$periodicityDatesId);
+            $activity_date = Activity_date::find('periodicityDatesId',$periodicityDatesId);
             $activity_date->delete();
 
             return response()->json([
