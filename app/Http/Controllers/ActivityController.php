@@ -15,10 +15,10 @@ class ActivityController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|between:2,100',
-            'category' => 'required|string|between:2,100',
+            'category' => 'string|between:2,100',
             'place' => 'required|string|min:1',
             'colour' => 'required',
-            'description' => 'required|string|min:2',
+            'description' => 'string|min:2',
 
         ]);
         $constant_values_array = array('Plans_idPlan' => $planId);
