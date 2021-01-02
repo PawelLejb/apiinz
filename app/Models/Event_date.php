@@ -13,6 +13,7 @@ class Event_date extends Model
         'start_date',
         'end_date',
         'Events_idEvents'
+          'allDay_flag'
 
     ];
 }
