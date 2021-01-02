@@ -117,6 +117,8 @@ Route::group([
     Route::post('activitiesDate/{planId}/{activityId}', [ActivityController::class,'createActivityDate']);
     Route::delete('activitiesDate/{id}', [ActivityController::class,'deleteActivityDate']);
     Route::put('activitiesDate/{id}', [ActivityController::class,'updateActivityDate']);
+     Route::delete('activitiesDates/{id}', [ActivityController::class,'deleteActivityDates']);
+    Route::put('activitiesDates/{id}', [ActivityController::class,'updateActivityDates']);
     //
     //GRUPY
     Route::get('group', [GroupController::class,'getGroups']);
