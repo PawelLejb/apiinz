@@ -133,7 +133,8 @@ class EventController extends Controller
     $validator = Validator::make($request->all(), [
         'start_date'=>'required',
         'end_date'=>'required|after_or_equal:start_date',
-        'Events_idEvents'=>'',
+        'allDay_flag'=>'',
+        'Events_idEvents'=>''
     ]);
         $constant_values_array=array('Events_idEvents'=>$id);
     if($validator->fails()){
@@ -170,6 +171,7 @@ class EventController extends Controller
             $validator = Validator::make($request->all(), [
                 'start_date'=>'',
                 'end_date'=>'after_or_equal:start_date',
+                'allDay_flag'=>''
 
 
 
