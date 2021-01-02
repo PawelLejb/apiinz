@@ -49,7 +49,8 @@ class EventController extends Controller
         $user_events = DB::table('events')
             ->leftjoin('event_dates','events.id','=','Events_idEvents')
             ->select('events.id','events.name','events.place','events.created_at','events.updated_at','events.colour','events.description','events.category','events.Users_idUser'
-                ,'event_dates.id AS event_date.id','event_dates.start_date','event_dates.end_date','event_dates.created_at AS event_date.created','event_dates.updated_at AS event_date.updated')
+                ,'event_dates.id AS event_date.id','event_dates.start_date','event_dates.end_date','event_dates.created_at AS event_date.created','event_dates.updated_at AS event_date.updated' ,
+  'event_dates.allDay_flag')
             ->where('Users_idUser','=',$id)
             ->orderBy('start_date')
             ->get()->toJson(JSON_PRETTY_PRINT);
@@ -65,7 +66,7 @@ class EventController extends Controller
             $user_events = DB::table('events')
                 ->leftjoin('event_dates','events.id','=','Events_idEvents')
                 ->select('events.id','events.name','events.place','events.created_at','events.updated_at','events.colour','events.description','events.category','events.Users_idUser'
-                    ,'event_dates.id AS event_date.id','event_dates.start_date','event_dates.end_date','event_dates.created_at AS event_date.created','event_dates.updated_at AS event_date.updated')
+                    ,'event_dates.id AS event_date.id','event_dates.start_date','event_dates.end_date','event_dates.created_at AS event_date.created','event_dates.updated_at AS event_date.updated' , 'event_dates.allDay_flag')
                 ->where('Users_idUser','=',$user->id)
                 ->where('events.id','=',$id)
                 ->orderBy('start_date')
