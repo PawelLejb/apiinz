@@ -12,7 +12,7 @@ class Event_date extends Model
         'id',
         'start_date',
         'end_date',
-        'Events_idEvents'
+        'Events_idEvents',
           'allDay_flag'
 
     ];
