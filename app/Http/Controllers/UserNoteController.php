@@ -204,10 +204,10 @@ class UserNoteController extends Controller
         $user=auth()->user();
         $id=$user->id;
         $noteTags = DB::table('note_tags')
-            ->join('user_notes','user_notes.id','=','notes_tags.Notes_idNote')
-            ->select('notes_tags.name','notes_tags.created_at')
+            ->join('user_notes','user_notes.id','=','note_tags.Notes_idNote')
+            ->select('note_tags.name','note_tags.created_at')
             ->where('user_notes.Users_idUser','=',$id)
-            ->orderBy('notes_tags.created_at')
+            ->orderBy('note_tags.created_at')
             ->distinct()
             ->get()->toJson(JSON_PRETTY_PRINT);
 
@@ -217,11 +217,11 @@ class UserNoteController extends Controller
         $user=auth()->user();
         $id=$user->id;
         $noteWithTags = DB::table('notes_tags')
-            ->join('user_notes','user_notes.id','=','notes_tags.Notes_idNote')
-            ->select('notes_tags.id as notes_tags.id','notes_tags.name as notes_tags.name',
+            ->join('user_notes','user_notes.id','=','note_tags.Notes_idNote')
+            ->select('note_tags.id as note_tags.id','note_tags.name as note_tags.name',
                 'user_notes.id','user_notes.title','user_notes.note','user_notes.updated_at','user_notes.created_at','user_notes.Users_idUser' )
             ->where('user_notes.Users_idUser','=',$id)
-            ->where('notes_tags.id','=',$noteTagId)
+            ->where('note_tags.id','=',$noteTagId)
             ->orderBy('created_at')
             ->get()->toJson(JSON_PRETTY_PRINT);
 
