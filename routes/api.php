@@ -64,7 +64,13 @@ Route::group([
     Route::put('userNotesData/{id}', [UserNoteController::class,'updateUserNoteData']);
     Route::delete('userNotesData/{id}',[UserNoteController::class,'deleteUserNoteData']);
     //
-
+     //tagi notatek
+    Route::post('noteTag/{noteId}', [UserNoteController::class,'createNoteTag']);
+    Route::delete('noteTag/{tagId}', [UserNoteController::class,'deleteNoteTag']);
+    Route::get('noteTags/{noteId}', [UserNoteController::class,'getNoteTags']);
+    Route::get('noteTag/{postTagId}', [UserNoteController::class,'getAllNotesWithTags']);
+    Route::get('noteTags', [UserNoteController::class,'getAllNoteTags']);
+    //
     //zdjecia uzytkownika
     Route::get('userPictures', [UserPictureController::class, 'getAllPictures']);
     Route::get('userPicture/{id}', [UserPictureController::class,'getPicture']);
