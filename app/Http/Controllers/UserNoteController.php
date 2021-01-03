@@ -211,19 +211,19 @@ class UserNoteController extends Controller
 
         return response($noteTags, 200);
     }
-    public function getAllNotesWithTags($postTagId) {
+    public function getAllNotesWithTags($noteTagId) {
         $user=auth()->user();
         $id=$user->id;
-        $postWithTags = DB::table('notes_tags')
+        $noteWithTags = DB::table('notes_tags')
             ->join('user_notes','user_notes.id','=','notes_tags.Notes_idNote')
             ->select('notes_tags.id as notes_tags.id','notes_tags.name as notes_tags.name',
                 'user_notes.id','user_notes.title','user_notes.note','user_notes.updated_at','user_notes.created_at','user_notes.Users_idUser' )
             ->where('user_notes.Users_idUser','=',$id)
-            ->where('notes_tags.id','=',$postTagId)
+            ->where('notes_tags.id','=',$noteTagId)
             ->orderBy('created_at')
             ->get()->toJson(JSON_PRETTY_PRINT);
 
-        return response($postWithTags, 200);
+        return response($noteWithTags, 200);
     }
     ///
 
