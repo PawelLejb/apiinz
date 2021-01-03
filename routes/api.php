@@ -68,7 +68,7 @@ Route::group([
     Route::post('noteTag/{noteId}', [UserNoteController::class,'createNoteTag']);
     Route::delete('noteTag/{tagId}', [UserNoteController::class,'deleteNoteTag']);
     Route::get('noteTags/{noteId}', [UserNoteController::class,'getNoteTags']);
-    Route::get('noteTag/{postTagId}', [UserNoteController::class,'getAllNotesWithTags']);
+    Route::get('noteTag/{noteTagId}', [UserNoteController::class,'getAllNotesWithTags']);
     Route::get('noteTags', [UserNoteController::class,'getAllNoteTags']);
     //
     //zdjecia uzytkownika
