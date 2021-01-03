@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User_note;
 use App\Models\User_data;
 use DB;
+use App\models\Note_tag;
 class UserNoteController extends Controller
 {
 
