@@ -145,7 +145,87 @@ class UserNoteController extends Controller
 
         }
     }
+////tagi
+    ///
+    public function createNoteTag($noteId,Request $request) {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|between:1,16',
+        ]);
+        $constant_values_array = array('Notes_idNote' => $noteId);
+        if($validator->fails()){
+            return response()->json($validator->errors()->toJson(), 400);
+        }
 
+        $post = Note_tag::create(array_merge(
+            $constant_values_array,
+            $validator->validated(),
+
+        ));
+
+        return response()->json([
+            'message' => 'Utworzono post!',
+            'post' => $post
+        ], 201);
+    }
+    public function deleteNoteTag($tagId) {
+
+        if(Note_tag::where('id', $tagId )->exists()) {
+            $noteTag = Note_tag::find($tagId);
+            $noteTag->delete();
+
+            return response()->json([
+                "message" => "Tag usunięty"
+            ], 202);
+        } else {
+            return response()->json([
+                "message" => "Nie znaleziono taga"
+            ], 404);
+        }
+
+    }
+    public function getNoteTags($noteId) {
+        if(User_note::where('id', $noteId )->exists()) {
+            $postTags = DB::table('note_tags')
+                ->select('note_tags.id','note_tags.name','note_tags.Posts_idPost','note_tags.updated_at','note_tags.created_at')
+                ->where('Notes_idNote','=',$noteId)
+                ->orderBy('created_at')
+                ->get()->toJson(JSON_PRETTY_PRINT);
+
+            return response($postTags, 200);
+        }else{
+            return response()->json([
+                "message" => "Nie znaleziono posta"
+            ], 404);
+        }
+    }
+    public function getAllNoteTags() {
+        $user=auth()->user();
+        $id=$user->id;
+        $noteTags = DB::table('note_tags')
+            ->join('user_notes','user_notes.id','=','notes_tags.Notes_idNote')
+            ->select('notes_tags.name','notes_tags.created_at')
+            ->where('user_notes.Users_idUser','=',$id)
+            ->orderBy('notes_tags.created_at')
+            ->distinct()
+            ->get()->toJson(JSON_PRETTY_PRINT);
+
+        return response($noteTags, 200);
+    }
+    public function getAllNotesWithTags($postTagId) {
+        $user=auth()->user();
+        $id=$user->id;
+        $postWithTags = DB::table('notes_tags')
+            ->join('user_notes','user_notes.id','=','notes_tags.Notes_idNote')
+            ->select('notes_tags.id as notes_tags.id','notes_tags.name as notes_tags.name',
+                'user_notes.id','user_notes.title','user_notes.note','user_notes.updated_at','user_notes.created_at','user_notes.Users_idUser' )
+            ->where('user_notes.Users_idUser','=',$id)
+            ->where('notes_tags.id','=',$postTagId)
+            ->orderBy('created_at')
+            ->get()->toJson(JSON_PRETTY_PRINT);
+
+        return response($postWithTags, 200);
+    }
+    ///
 
 
 }
