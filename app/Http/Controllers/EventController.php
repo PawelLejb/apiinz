@@ -14,10 +14,10 @@ class EventController extends Controller
         $id=$user->id;
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|between:2,100',
-            'place' => 'string|between:2,100',
-            'description' => 'string|min:1',
+            'place' => 'string',
+            'description' => 'string',
             'colour'=> 'required',
-            'category'=> 'string|min:2',
+            'category'=> 'string',
             'Users_idUser'=>'',
 
 
