@@ -188,7 +188,7 @@ class UserNoteController extends Controller
     public function getNoteTags($noteId) {
         if(User_note::where('id', $noteId )->exists()) {
             $postTags = DB::table('note_tags')
-                ->select('note_tags.id','note_tags.name','note_tags.Posts_idPost','note_tags.updated_at','note_tags.created_at')
+                ->select('note_tags.id','note_tags.name','note_tags.Notes_idNote','note_tags.updated_at','note_tags.created_at')
                 ->where('Notes_idNote','=',$noteId)
                 ->orderBy('created_at')
                 ->get()->toJson(JSON_PRETTY_PRINT);
