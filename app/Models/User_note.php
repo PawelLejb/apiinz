@@ -12,6 +12,8 @@ class User_note extends Model
         'id',
         'title',
         'note',
+        'created_at',
+        'updated_at',
         'Users_idUser'
 
     ];
