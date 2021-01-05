@@ -49,6 +49,7 @@ Route::group([
     Route::get('users', [UserController::class,'getUser']);
     Route::put('users', [UserController::class,'updateUser']);
     Route::delete('users',[UserController::class,'deleteUser']);
+    Route::get('searchUsers/{term}',[UserController::class,'searchUser']);
     //
 
     // Notatki uzytkownika
