@@ -223,7 +223,12 @@ class GroupController extends Controller
             if($updUserRole==''){
                 return response()->json('Użytkownika nie ma w grupie', 400);
             }else {
+                $user->groups()->detach($group, ['role' => '']);
                 $user->groups()->attach($group, ['role' => $role]);
+               // $result=DB::table('group_users')
+               //     ->where('Users_idUser','=',$userId)
+               //     ->where('Groups_idGroup','=',$groupId)
+                //    ->update(['role'=>$role]);
                 return response()->json('Zmieniono uprawnienia użytkownika', 201);
 
             }
