@@ -56,5 +56,15 @@ class UserController extends Controller
             ], 404);
         }
     }
+     public function searchUser($term) {
+        $search = User::where('name','!=','NULL')
+            ->where('secondName','!=','NULL')
+            ->orwhere('name','LIKE','%'.$term.'%')
+            ->orwhere('secondName','LIKE','%'.$term.'%')
+            ->orwhere('name'.' '.'secondName','LIKE','%'.$term.'%')
+            ->orwhere('secondName'.' '.'name','LIKE','%'.$term.'%')
+            ->get()->toJson(JSON_PRETTY_PRINT);
 
+        return response($search, 200);
+    }
 }
