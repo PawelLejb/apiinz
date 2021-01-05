@@ -60,8 +60,9 @@ class UserController extends Controller
         $search = User::where('name','!=','NULL')
             ->where('secondName','!=','NULL')
             
-           ->orwhere('name','LIKE','%'.$term.'%')
+           ->where('name','LIKE','%'.$term.'%')
             ->orwhere('secondName','LIKE','%'.$term.'%')
+            ->orWhere('email','LIKE','%'.$term.'%')
             //->orwhere('name'.' '.'secondName','LIKE','%'.$term.'%')
            // ->orwhere('secondName'.' '.'name','LIKE','%'.$term.'%')
             ->get()->toJson(JSON_PRETTY_PRINT);
