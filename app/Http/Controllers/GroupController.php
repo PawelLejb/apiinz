@@ -209,6 +209,9 @@ class GroupController extends Controller
         }
     }
     public function updateUserGroup($userId, $groupId ,$role) {
+        if($role=='god'){
+            return response()->json('Użytkownik nie może zostać ustawiony na właściciela grupy!', 400);
+        }
         $user = User::find($userId);
         $group = Group::find($groupId);
         $userRole = DB::table('group_users')
