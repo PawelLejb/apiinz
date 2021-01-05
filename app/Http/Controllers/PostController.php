@@ -142,7 +142,7 @@ class PostController extends Controller
             return response()->json('Nie masz uprawnień!', 400);
         }
         $post = DB::table('posts')
-           ->select('posts.id','posts.title','posts.author','posts.authorId','posts.updated_at','posts.created_at','posts.Groups_idGroup')
+           ->select('posts.id','posts.title','posts.author','posts.authorId','posts.post','posts.updated_at','posts.created_at','posts.Groups_idGroup')
             ->where('Groups_idGroup','=',$groupId)
             ->orderBy('created_at')
             ->get()->toJson(JSON_PRETTY_PRINT);
