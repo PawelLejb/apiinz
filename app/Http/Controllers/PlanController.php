@@ -95,18 +95,11 @@ class PlanController extends Controller
                 'name'=>'string|min:1',
                 'activeFlag'=>'int|min:0|max:1'
             ]);
-            if($request->start_date<Carbon::now()){
-                $constant_values_array=array('activeFlag'=>'0');
-            }
-            else{
-                $constant_values_array=array('activeFlag'=>'1');
-            }
-
             if ($validator->fails()) {
                 return response()->json($validator->errors()->toJson(), 400);
             }
 
-           $plans->update(array_merge($constant_values_array,$request->all()));
+           $plans->update($request->all());
             return response()->json([
                 'message' => 'Udało się zmodyfikować dane.',
                 'plan' => $plans
