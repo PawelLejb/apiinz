@@ -211,6 +211,10 @@ class GroupController extends Controller
                     return response()->json('Użytkownika nie ma w grupie.', 400);
                 }
             }else{
+                if($userId==auth()->user()->id){
+                    $user->groups()->detach($group, ['role' => '']);
+                    return response()->json('Usunięto użytkownika', 400);
+                }
                 return response()->json('Nie masz uprawnień!', 400);
             }
         }else {
