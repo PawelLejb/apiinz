@@ -19,7 +19,7 @@ class PlanController extends Controller
             'Users_idUser'=>'',
         ]);
         //$constant_values_array=array('Users_idUser'=>$userId);
-        if($request->start_date<Carbon::now()){
+        if($request->end_date<Carbon::now()){
             $constant_values_array=array('Users_idUser'=>$userId,'activeFlag'=>'0');
         }
         else{
@@ -95,7 +95,7 @@ class PlanController extends Controller
                 'name'=>'string|min:1',
                 'activeFlag'=>'int|min:0|max:1'
             ]);
-            if($request->start_date<Carbon::now()){
+            if($request->end_date<Carbon::now()){
                 $constant_values_array=array('activeFlag'=>'0');
             }
             else{
