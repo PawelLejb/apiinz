@@ -46,7 +46,17 @@ class ActivityController extends Controller
     public function getAllActivities($planId)
     {
 
-
+         $activeFlag=DB::table('plans')
+            ->where('id','=', $planId)
+            ->value('activeFlag');
+        if($activeFlag=='1'){
+            $startDate=DB::table('plans')
+                ->where('id','=', $planId)
+                ->value('start_date');
+            if($startDate<Carbon::now()){
+                Plan::where('id',$planId )->update(array('activeFlag' =>'0'));
+            }
+        }
         $activities = DB::table('activities')
             ->leftjoin('activity_dates', 'activities.id', '=', 'Activities_idActivities')
             ->select('activities.id', 'activities.name', 'activities.place', 'activities.created_at',
