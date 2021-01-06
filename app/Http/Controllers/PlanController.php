@@ -80,7 +80,6 @@ class PlanController extends Controller
             ->where('id','=', $id)
             ->value('activeFlag');
         if($activeFlag=='1'){
-            return $activeFlag;
             $startDate=DB::table('plans')
                 ->where('id','=', $id)
                 ->value('start_date');
