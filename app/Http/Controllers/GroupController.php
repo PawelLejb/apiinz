@@ -281,7 +281,7 @@ public function searchGroup($term) {
 
         $search = DB::table('groups')
             ->select("*")
-            ->where('name','like',$term)
+            ->where('name','like','%'.$term.'%')
             ->get()->toJson(JSON_PRETTY_PRINT);
 
         return response($search, 200);
