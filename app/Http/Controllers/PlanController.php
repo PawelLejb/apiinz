@@ -76,17 +76,7 @@ class PlanController extends Controller
     }
 */
    public function updatePlan(Request $request,$id) {
-        $activeFlag=DB::table('plans')
-            ->where('id','=', $id)
-            ->value('activeFlag');
-        if($activeFlag=='1'){
-            $startDate=DB::table('plans')
-                ->where('id','=', $id)
-                ->value('start_date');
-            if($startDate<Carbon::now()){
-                Plan::where('id',$id )->update(array('activeFlag' =>'0'));
-            }
-        }
+       
         $plans =Plan::where('id',$id );
         if (Plan::where('id',$id )->exists()) {
             $validator = Validator::make($request->all(), [
