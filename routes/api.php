@@ -147,6 +147,7 @@ Route::group([
     Route::delete('post/{groupId}/{postId}', [PostController::class,'deletePost']);
     Route::get('post/{groupId}/{postId}', [PostController::class,'getPost']);
     Route::get('posts/{groupId}', [PostController::class,'getPosts']);
+    Route::get('AllGroupsPosts', [PostController::class,'getAllGroupsPosts']);
     //
     //tagi posta
     Route::post('postTag/{groupId}/{postId}', [PostController::class,'createTag']);
