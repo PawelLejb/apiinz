@@ -101,6 +101,7 @@ Route::group([
     Route::post('activityNotes/{activityId}', [ActivityNoteController::class,'createActivityNote']);
     Route::put('activityNotes/{id}', [ActivityNoteController::class,'updateActivityNote']);
     Route::delete('activityNotes/{id}',[ActivityNoteController::class,'deletcomment_dataseActivityNote']);
+    Route::get('searchNote/{term}', [UserNoteController::class,'searchNote']);
     //pliki do notatek
     Route::post('activityNotesData/{id}', [ActivityNoteController::class,'addActivityNoteData']);
     Route::put('activityNotesData/{id}', [ActivityNoteController::class,'updateActivityNoteData']);
@@ -140,6 +141,7 @@ Route::group([
     Route::delete('group/{groupId}', [GroupController::class,'deleteGroup']);
     Route::put('groupUser/{userId}/{groupId}/{role}', [GroupController::class,'updateUserGroup']);
     Route::put('group/{groupId}', [GroupController::class,'updateGroup']);
+    Route::get('searchGroup/{term}', [GroupController::class,'searchGroup']);
     //
     //POSTY
     Route::post('post/{groupId}', [PostController::class,'createPost']);
