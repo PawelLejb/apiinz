@@ -237,5 +237,13 @@ class UserNoteController extends Controller
 
         return response($search, 200);
     }
+public function searchNoteTag($term) {
 
+        $search = DB::table('note_tags')
+            ->select("*")
+            ->where('name','like','%'.$term.'%')
+            ->get()->toJson(JSON_PRETTY_PRINT);
+
+        return response($search, 200);
+    }
 }
