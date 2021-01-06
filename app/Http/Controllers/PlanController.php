@@ -80,10 +80,10 @@ class PlanController extends Controller
             ->where('id','=', $id)
             ->value('activeFlag');
         if($activeFlag=='1'){
-            $startDate=DB::table('plans')
+            $endDate=DB::table('plans')
                 ->where('id','=', $id)
                 ->value('start_date');
-            if($startDate<Carbon::now()){
+            if($endDate<Carbon::now()){
                 Plan::where('id',$id )->update(array('activeFlag' =>'0'));
             }
         }
