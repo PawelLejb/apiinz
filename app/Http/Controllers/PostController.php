@@ -27,7 +27,7 @@ class PostController extends Controller
             'title' => 'required|string|between:6,60',
             'post' => 'required|between:10,1000',
         ]);
-        $constant_values_array = array('Groups_idGroup' => $groupId,'authorId'=>auth()->user()->id,'author'=>auth()->user()->name.auth()->user()->secondName);
+        $constant_values_array = array('Groups_idGroup' => $groupId,'authorId'=>auth()->user()->id,'author'=>auth()->user()->name.' '.auth()->user()->secondName);
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(), 400);
         }
