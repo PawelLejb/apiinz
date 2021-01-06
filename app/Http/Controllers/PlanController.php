@@ -7,6 +7,7 @@ use DB;
 use Validator;
 class PlanController extends Controller
 {
+    /*
     public function createPlan(Request $request) {
         $user=auth()->user();
         $userId=  $user->id;
@@ -20,6 +21,38 @@ class PlanController extends Controller
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(), 400);
         }
+
+        $activityDate = Plan::create(array_merge(
+            $constant_values_array,
+            $validator->validated()
+        ));
+
+        return response()->json([
+            'message' => 'Dodałeś datę przedmiotu',
+            'activity' => $activityDate
+        ], 201);
+    }
+    */
+    public function createPlan(Request $request) {
+        $user=auth()->user();
+        $userId=  $user->id;
+        $validator = Validator::make($request->all(), [
+            'start_date'=>'required',
+            'end_date'=>'required|after_or_equal:start_date',
+            'name'=>'required|string|min:1',
+            'Users_idUser'=>'',
+        ]);
+        //$constant_values_array=array('Users_idUser'=>$userId);
+        if($request->start_date<Carbon::now()){
+            $constant_values_array=array('Users_idUser'=>$userId,'activeFlag'=>'0');
+        }
+        else{
+            $constant_values_array=array('Users_idUser'=>$userId,'activeFlag'=>'1');
+        }
+        if($validator->fails()){
+            return response()->json($validator->errors()->toJson(), 400);
+        }
+
 
         $activityDate = Plan::create(array_merge(
             $constant_values_array,
