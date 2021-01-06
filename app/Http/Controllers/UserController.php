@@ -57,10 +57,11 @@ class UserController extends Controller
         }
     }
      public function searchUser($term) {
-        $search =
-User::where('name','!=','NULL')
-->where('secondName','!=','NULL')
-->where('CONCAT_WS(" ", name, secondName)'), 'like', $term)
+
+            $search =
+                User::where('name','!=','NULL')
+                    ->where('secondName','!=','NULL')
+                    ->where(('CONCAT_WS(" ", name, secondName)'),'like' ,'%'.$term.'%')
             ->get()->toJson(JSON_PRETTY_PRINT);
         return response($search, 200);
     }
