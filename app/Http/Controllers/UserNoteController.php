@@ -232,7 +232,7 @@ class UserNoteController extends Controller
 
         $search = DB::table('user_notes')
             ->select("*")
-            ->where('title','like',$term)
+            ->where('title','like','%'.$term.'%')
             ->get()->toJson(JSON_PRETTY_PRINT);
 
         return response($search, 200);
