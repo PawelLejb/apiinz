@@ -13,7 +13,7 @@ class PlanController extends Controller
         $user=auth()->user();
         $userId=  $user->id;
         $validator = Validator::make($request->all(), [
-            'start_date'=>'required',
+            'start_date'=>'required|before_or_equal:end_date',
             'end_date'=>'required|after_or_equal:start_date',
             'name'=>'required|string|min:1',
             'Users_idUser'=>'',
@@ -90,7 +90,7 @@ class PlanController extends Controller
         $plans =Plan::where('id',$id );
         if (Plan::where('id',$id )->exists()) {
             $validator = Validator::make($request->all(), [
-                'start_date'=>'',
+                'start_date'=>'before_or_equal:end_date',
                 'end_date'=>'after_or_equal:start_date',
                 'name'=>'string|min:1',
                 'activeFlag'=>'int|min:0|max:1'
