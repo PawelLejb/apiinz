@@ -58,6 +58,7 @@ Route::group([
     Route::post('userNotes', [UserNoteController::class,'createUserNote']);
     Route::put('userNotes/{id}', [UserNoteController::class,'updateUserNote']);
     Route::delete('userNotes/{id}',[UserNoteController::class,'deleteUserNote']);
+     Route::get('searchNoteTag/{term}', [UserNoteController::class,'searchNoteTag']);
     //pliki do notatek
     Route::get('userNotesData', [UserNoteController::class, 'getAllUserNotesData']);
     Route::get('userNotesData/{id}', [UserNoteController::class,'getUserNoteData']);
@@ -157,6 +158,7 @@ Route::group([
     Route::get('postTags/{postId}', [PostController::class,'getPostTags']);
     Route::get('tag/{groupId}/{postTagId}', [PostController::class,'getAllPostsWithTags']);
     Route::get('tags/{groupId}', [PostController::class,'getAllTags']);
+     Route::get('searchPostTag/{term}', [PostController::class,'searchPostTag']);
     //
 
     //pliki posta
