@@ -398,7 +398,15 @@ class PostController extends Controller
         }
 
     }
+public function searchPostTag($term) {
 
+        $search = DB::table('post_tags')
+            ->select("*")
+            ->where('name','like','%'.$term.'%')
+            ->get()->toJson(JSON_PRETTY_PRINT);
+
+        return response($search, 200);
+    }
 //PLIKI DO POSTA
 
 
