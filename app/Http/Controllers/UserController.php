@@ -56,13 +56,10 @@ class UserController extends Controller
             ], 404);
         }
     }
-        public function searchUser($term) {
+        public function searchUser($string)
 
-        $search = DB::table('users')
-                ->select("*", DB::raw("CONCAT(users.first_name,' ',users.last_name) AS full_name"))
-                ->where('full_name','like','%'.$term.'%')
-                ->get()->toJson(JSON_PRETTY_PRINT);
-
-        return response($search, 200);
-        }
+        $search = User::where(DB::raw("CONCAT(user.first_name, ' ', user.last_name)"), 'LIKE', "%{$string}%")
+->orWhere(DB::raw("CONCAT(user.first_name, ' ', user.last_name)"), 'LIKE', "%{$string}%")
+->orWhere('email', 'LIKE', "%{$string}%")
+->get();
 }
