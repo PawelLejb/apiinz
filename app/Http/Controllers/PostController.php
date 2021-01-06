@@ -132,6 +132,17 @@ class PostController extends Controller
         }
 
     }
+    public function getAllGroupsPosts() {
+        $currentUser=auth()->user()->id;
+        $post = DB::table('posts')
+            ->join('group_users','posts.Groups_idGroup','=','group_users.Groups_idGroup')
+            ->select('posts.id','posts.title','posts.author','posts.authorId','posts.updated_at','posts.created_at','posts.Groups_idGroup')
+            ->where('group_users.Users_idUser','=',$currentUser)
+            ->orderBy('created_at')
+            ->get()->toJson(JSON_PRETTY_PRINT);
+
+        return response($post, 200);
+    }
     public function getPosts($groupId) {
         $currentUser=auth()->user()->id;
         $userRole=DB::table('group_users')
