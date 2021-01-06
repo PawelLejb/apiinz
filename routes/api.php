@@ -133,6 +133,7 @@ Route::group([
     Route::get('groupUsers/{groupId}', [GroupController::class,'getUsersGroup']);
     Route::get('groupUser/{userId}', [GroupController::class,'getUserGroup']);
     Route::post('group', [GroupController::class,'createGroup']);
+    Route::get('getUsersGroups/{userId}', [GroupController::class,'getUsersGroups']);
     Route::post('joinGroup/{groupId}', [GroupController::class,'joinGroup']);
     Route::post('groupUser/{userId}/{groupId}', [GroupController::class,'addUserGroup']);
     Route::delete('groupUser/{userId}/{groupId}', [GroupController::class,'deleteUserGroup']);
