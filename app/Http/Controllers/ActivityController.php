@@ -164,7 +164,7 @@ class ActivityController extends Controller
         $periodicityDatesId=$periodicityDatesId+1;
        // return $periodicityDatesId;
         $endPlanDate = Carbon::createFromFormat('Y-m-d H:i',$endPlanDate.' 00:00')->addDays(1);
-        $startPlanDate = Carbon::createFromFormat('Y-m-d H:i',$startPlanDate.' 00:00')->addDays(-1);
+        $startPlanDate = Carbon::createFromFormat('Y-m-d H:i',$startPlanDate.' 00:00')->addDays(0);
 
             $validator = Validator::make($request->all(), [
                 'start_date' => 'required|before_or_equal:'.$endPlanDate.'|after_or_equal:'.$startPlanDate,
