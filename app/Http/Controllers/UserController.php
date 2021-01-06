@@ -60,6 +60,7 @@ class UserController extends Controller
 
         $search = User::where(DB::raw("CONCAT(name, ' ', secondName)"), 'LIKE', "%{$string}%")
 ->orWhere(DB::raw("CONCAT(name, ' ', secondName)"), 'LIKE', "%{$string}%")
+ ->orWhere(DB::raw("CONCAT(secondName,' ',name)"), 'LIKE', "%{$string}%")
 ->orWhere('email', 'LIKE', "%{$string}%")
 ->get();
               return response($search, 200);
