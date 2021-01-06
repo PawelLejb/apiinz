@@ -106,7 +106,7 @@ class PlanController extends Controller
                 return response()->json($validator->errors()->toJson(), 400);
             }
 
-            $plans->update($constant_values_array,$request->all());
+            $plans->update(array_merge($constant_values_array,$request->all()));
             return response()->json([
                 'message' => 'Udało się zmodyfikować dane.',
                 'plan' => $plans
