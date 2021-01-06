@@ -76,7 +76,18 @@ class PlanController extends Controller
     }
 */
    public function updatePlan(Request $request,$id) {
-       
+       $activeFlag=DB::table('plans')
+            ->where('id','=', $id)
+            ->value('activeFlag');
+        if($activeFlag=='1'){
+            return $activeFlag;
+            $startDate=DB::table('plans')
+                ->where('id','=', $id)
+                ->value('start_date');
+            if($startDate<Carbon::now()){
+                Plan::where('id',$id )->update(array('activeFlag' =>'0'));
+            }
+        }
         $plans =Plan::where('id',$id );
         if (Plan::where('id',$id )->exists()) {
             $validator = Validator::make($request->all(), [
@@ -85,11 +96,17 @@ class PlanController extends Controller
                 'name'=>'string|min:1',
                 'activeFlag'=>'int|min:0|max:1'
             ]);
+            if($request->start_date<Carbon::now()){
+                $constant_values_array=array('activeFlag'=>'0');
+            }
+            else{
+                $constant_values_array=array('activeFlag'=>'1');
+            }
             if ($validator->fails()) {
                 return response()->json($validator->errors()->toJson(), 400);
             }
 
-           $plans->update($request->all());
+           $plans->update(array_merge($constant_values_array,$request->all()));
             return response()->json([
                 'message' => 'Udało się zmodyfikować dane.',
                 'plan' => $plans
