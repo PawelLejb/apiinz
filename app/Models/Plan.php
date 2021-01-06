@@ -13,6 +13,7 @@ class Plan extends Model
         'start_date',
         'end_date',
         'name',
+        'activeFlag',
         'Users_idUser',
         'created_at',
         'updated_at',
