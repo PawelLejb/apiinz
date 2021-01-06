@@ -42,6 +42,8 @@ class GroupController extends Controller
                 ->select('groups.id', 'groups.name', 'groups.description', 'groups.picture','groups.created_at','groups.created_at'
                     , 'group_users.role', 'group_users.created_at', 'group_users.updated_at')
                 ->where('group_users.Users_idUser', '=', $userId)
+                ->orderBy('groups.created_at')
+                ->distinct()
                 ->get()->toJson(JSON_PRETTY_PRINT);
             return response($groups, 200);
         }
