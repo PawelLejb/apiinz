@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use JWTAuth;
 use Validator;
-
+use DB;
 class UserController extends Controller
 {
     public function getUser() {
@@ -60,7 +60,7 @@ class UserController extends Controller
 
         $search = DB::table('users')
                 ->select("*", DB::raw("CONCAT(users.first_name,' ',users.last_name) AS full_name"))
-                ->where('full_name','like',$term)
+                ->where('full_name','like','%'.$term.'%')
                 ->get()->toJson(JSON_PRETTY_PRINT);
 
         return response($search, 200);
