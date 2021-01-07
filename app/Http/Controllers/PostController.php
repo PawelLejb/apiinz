@@ -20,7 +20,7 @@ class PostController extends Controller
             ->where('Users_idUser','=', auth()->user()->id)
             ->where('Groups_idGroup','=',$groupId)
             ->value('role');
-        if($userRole=='unauthorized' || $userRole==''){
+        if($userRole=='unverified' || $userRole==''){
             return response()->json('Nie masz uprawnień musisz zostać zaakceptowany przez administratora', 400);
         }
         $validator = Validator::make($request->all(), [
@@ -115,7 +115,7 @@ class PostController extends Controller
             ->where('Users_idUser','=', $currentUser)
             ->where('Groups_idGroup','=',$groupId)
             ->value('role');
-        if($userRole=='unauthorized' || $userRole==''){
+        if($userRole=='unverified' || $userRole==''){
             return response()->json('Nie masz uprawnień!', 400);
         }
 
@@ -149,7 +149,7 @@ class PostController extends Controller
             ->where('Users_idUser','=', $currentUser)
             ->where('Groups_idGroup','=',$groupId)
             ->value('role');
-        if($userRole=='unauthorized' || $userRole==''){
+        if($userRole=='unverified' || $userRole==''){
             return response()->json('Nie masz uprawnień!', 400);
         }
         $post = DB::table('posts')
@@ -364,7 +364,7 @@ class PostController extends Controller
             ->where('Users_idUser','=', $currentUser)
             ->where('Groups_idGroup','=',$groupId)
             ->value('role');
-        if($userRole=='unauthorized' || $userRole==''){
+        if($userRole=='unverified' || $userRole==''){
             return response()->json('Nie masz uprawnień!', 400);
         }
         $postData = DB::table('post_datas')
@@ -382,7 +382,7 @@ class PostController extends Controller
                 ->where('Users_idUser','=', $currentUser)
                 ->where('Groups_idGroup','=',$groupId)
                 ->value('role');
-            if($userRole=='unauthorized' || $userRole==''){
+            if($userRole=='unverified' || $userRole==''){
                 return response()->json('Nie masz uprawnień!', 400);
             }
             $postData = DB::table('post_datas')
