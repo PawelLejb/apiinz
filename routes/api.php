@@ -123,7 +123,7 @@ Route::group([
     Route::put('activities/{id}', [ActivityController::class,'updateActivity']);
     Route::delete('activities/{id}', [ActivityController::class,'deleteActivity']);
     //daty przedmiotów
-    Route::post('activitiesDate/{planId}/{activityId}/{periodicityValue}', [ActivityController::class,'createActivityDate']);
+    Route::post('activitiesDate/{planId}/{activityId}', [ActivityController::class,'createActivityDate']);
     Route::delete('activitiesDate/{id}', [ActivityController::class,'deleteActivityDate']);
     Route::put('activitiesDate/{id}', [ActivityController::class,'updateActivityDate']);
      Route::delete('activitiesDates/{id}', [ActivityController::class,'deleteActivityDates']);
