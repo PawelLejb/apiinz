@@ -147,7 +147,7 @@ class ActivityController extends Controller
     //daty przedmiotu
 
 
-    public function createActivityDate(Request $request,$planId,$activityId,$periodicityValue)
+    public function createActivityDate(Request $request,$planId,$activityId)
     {
         $user=auth()->user();
         $endPlanDate=DB::table('activities')
@@ -189,8 +189,8 @@ class ActivityController extends Controller
                 $activityDate = Activity_date::create(array_merge(
                     $constant_values_array,
                 ));
-                $request->start_date = $request->start_date->addDays($periodicityValue);
-                $request->end_date = $request->end_date->addDays($periodicityValue);
+                $request->start_date = $request->start_date->addDays(7);
+                $request->end_date = $request->end_date->addDays(7);
 
             }
                 return response()->json([
