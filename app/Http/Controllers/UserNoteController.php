@@ -229,16 +229,17 @@ class UserNoteController extends Controller
     }
     ///
  public function searchNote($term) {
-
+$user=auth()->user();
+        $id=$user->id;
         $search = DB::table('user_notes')
             ->select("*")
             ->where('title','like','%'.$term.'%')
+            ->where('Users_idUser','=',$id)
             ->get()->toJson(JSON_PRETTY_PRINT);
 
         return response($search, 200);
     }
 public function searchNoteTag($term) {
-
         $search = DB::table('note_tags')
             ->select("*")
             ->where('name','like','%'.$term.'%')
