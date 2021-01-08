@@ -206,14 +206,14 @@ class GroupController extends Controller
                     return response()->json('Nie można usunąć samego siebie z grupy kiedy ją stworzyłeś, jeżeli chcesz opuścić grupę usuń ją!', 400);
                 }else if($delUserRole!=''){
                     $user->groups()->detach($group, ['role' => '']);
-                    return response()->json('Usunięto użytkownika', 400);
+                    return response()->json('Usunięto użytkownika', 200);
                 }else{
                     return response()->json('Użytkownika nie ma w grupie.', 400);
                 }
             }else{
                 if($userId==auth()->user()->id){
                     $user->groups()->detach($group, ['role' => '']);
-                    return response()->json('Usunięto użytkownika', 400);
+                    return response()->json('Usunięto użytkownika', 200);
                 }
                 return response()->json('Nie masz uprawnień!', 400);
             }
