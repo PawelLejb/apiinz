@@ -69,7 +69,7 @@ class GroupController extends Controller
     {           
             
             $userGroup = DB::table('users')
-                ->join('group_users', 'group_users.Users_idUser', '=', 'groups.id')
+                ->join('group_users', 'group_users.Users_idUser', '=', 'users.id')
                 ->select('users.id', 'users.name', 'users.secondName', 'users.profileDesc', 'users.profilePic','group_users.Groups_idGroup')
                 ->where('users.id', '=', $userId)
                 ->where('group_users.Groups_idGroup','=',$groupId)
