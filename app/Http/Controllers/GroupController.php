@@ -65,12 +65,14 @@ class GroupController extends Controller
             return response()->json('Nie masz uprawnień do tej grupy! najpierw do niej dołącz', 400);
         }
     }
-    public function getUserGroup($userId)
-    {
-
+    public function getUserGroup($userId,$groupId)
+    {           
+            
             $userGroup = DB::table('users')
-                ->select('users.id', 'users.name', 'users.secondName', 'users.profileDesc', 'users.profilePic')
+                ->join('group_users', 'group_users.Users_idUser', '=', 'groups.id')
+                ->select('users.id', 'users.name', 'users.secondName', 'users.profileDesc', 'users.profilePic','group_users.Groups_idGroup')
                 ->where('id', '=', $userId)
+                ->where('group_users.Groups_idGroup','=',$groupId)
                 ->get()->toJson(JSON_PRETTY_PRINT);
 
             return response($userGroup, 200);
