@@ -133,7 +133,7 @@ Route::group([
     Route::get('group', [GroupController::class,'getGroups']);
     Route::get('group/{groupId}', [GroupController::class,'getGroup']);
     Route::get('groupUsers/{groupId}', [GroupController::class,'getUsersGroup']);
-    Route::get('groupUser/{userId}', [GroupController::class,'getUserGroup']);
+    Route::get('groupUser/{userId}/{groupId}', [GroupController::class,'getUserGroup']);
     Route::post('group', [GroupController::class,'createGroup']);
     Route::get('getUsersGroups/{userId}', [GroupController::class,'getUsersGroups']);
     Route::post('joinGroup/{groupId}', [GroupController::class,'joinGroup']);
