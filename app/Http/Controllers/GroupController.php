@@ -71,7 +71,7 @@ class GroupController extends Controller
             $userGroup = DB::table('users')
                 ->join('group_users', 'group_users.Users_idUser', '=', 'groups.id')
                 ->select('users.id', 'users.name', 'users.secondName', 'users.profileDesc', 'users.profilePic','group_users.Groups_idGroup')
-                ->where('id', '=', $userId)
+                ->where('users.id', '=', $userId)
                 ->where('group_users.Groups_idGroup','=',$groupId)
                 ->get()->toJson(JSON_PRETTY_PRINT);
 
