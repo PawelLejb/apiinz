@@ -68,11 +68,11 @@ return [
 
             'driver' => 'ftp',
 
-            'host' => 'studenthelperappapiftp.prv.pl',
+            'host' => env('studenthelperappapiftp.prv.pl'),
 
-            'username' => 'studenthelperappapiftp@prv.pl',
+            'username' => env('studenthelperappapiftp@prv.pl'),
 
-            'password' => '123456789',
+            'password' => env('123456789'),
 
             // Optional FTP Settings...
              'port'     => 21,
