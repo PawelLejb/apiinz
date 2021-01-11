@@ -64,9 +64,9 @@ return [
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
         ],
-       'custom-ftpss' => [
+       'custom-ftp' => [
 
-            'driver' => 'ftp',
+            'driver' => env('ftp'),
 
             'host' => env('studenthelperappapiftp.prv.pl'),
 
