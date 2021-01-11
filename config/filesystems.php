@@ -68,7 +68,7 @@ return [
 
             'driver' => 'ftp',
 
-            'host' => env('studenthelperappapiftp.prv.pl'),
+            'host' => env('studenthelperappapiftp.prv.pl1'),
 
             'username' => env('studenthelperappapiftp@prv.pl'),
 
