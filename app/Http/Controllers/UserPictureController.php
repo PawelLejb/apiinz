@@ -11,22 +11,44 @@ class UserPictureController extends Controller
 {
     public function addPicture(Request $request) {
         $user=auth()->user();
-        $userId=  $user->id;
-        $user_picture = new User_picture;
-        $user_picture ->name = $request->name;
-        $user_picture ->picUrl = $request->picUrl;
-        $user_picture ->Users_idUser=$userId;
-        $user_picture ->save();
+        $user->id;
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|file|mimes:png,jpg,jpeg|max:1024|min:1',
+            'picUrl'=>'',
+
+        ]);
+        if($validator->fails()) {
+
+            return response()->json(['error'=>$validator->errors()], 401);
+        }
+        $filenamewithextension = $request->file('name')->getClientOriginalName();
+        $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
+        $extension = $request->file('name')->getClientOriginalExtension();
+        $filenametostore = $filename.'_'.uniqid().'.'.$extension;
+        Storage::disk('custom-ftp')->put($filenametostore, fopen($request->file('name'), 'r+'));
+        $constant_values_array=array('Users_idUser'=>$user->id,
+            'name'=>$filename,
+            'picUrl'=>$filenametostore
+        );
+        $userPicutre = User_picture::create(array_merge(
+            $constant_values_array
+        ));
 
         return response()->json([
-            "message" => "Dodano zdjęcie"
+            'message' => 'Dodałeś zdjęcie',
+            'userPicture' => $userPicutre
         ], 201);
 
     }
-
     public function deletePicture ($id) {
         $user=auth()->user();
         $user->id;
+        $picUrl=DB::table('user_pictures')
+            ->where('Users_idUser','=',$user->id)
+            ->where('id','=',$id)
+            ->value('picUrl');
+            Storage::disk('custom-ftp')->delete($picUrl);
         if(User_picture::where('id', $id )->exists()) {
             $user_picture = User_picture::find($id);
             $user_picture->delete();
