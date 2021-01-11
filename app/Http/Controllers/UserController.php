@@ -26,7 +26,6 @@ class UserController extends Controller
             'secondName'=> 'string|min:1',
             'birthday'=> 'date',
             'pofileDesc'=> 'between:0,250',
-            'profilePic'=> 'Active URL',
         ]);
 
         if($validator->fails()){
