@@ -64,19 +64,19 @@ return [
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
         ],
-        'custom-ftp' => [
+       'custom-ftp' => [
 
             'driver' => 'ftp',
 
-            'host' => 'studenthelperappftp.cba.pl',
+            'host' => 'studenthelperappapiftp.prv.pl',
 
-            'username' => 'studenthelperappftp',
+            'username' => 'studenthelperappapiftp@prv.pl',
 
-            'password' => 'Dominos123ab',
+            'password' => '123456789',
 
             // Optional FTP Settings...
-            // 'port'     => 21,
-            // 'root' => '/Example',
+             'port'     => 21,
+              'root' => '/studenthelperappapi',
             // 'passive'  => true,
             // 'ssl'      => true,
             // 'timeout'  => 30,
