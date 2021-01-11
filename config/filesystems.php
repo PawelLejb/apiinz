@@ -75,7 +75,7 @@ return [
             'password' => env('123456789'),
 
             // Optional FTP Settings...
-            // 'port'     => 21,
+             'port'     => 22,
               'root' => '/studenthelperappapi',
              'passive'  => true,
              'ssl'      => true,
