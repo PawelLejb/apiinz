@@ -75,11 +75,11 @@ return [
             'password' => '123456789',
 
             // Optional FTP Settings...
-            // 'port'     => 21,
+             'port'     => 21,
               'root' => '/studenthelperappapi',
-            // 'passive'  => true,
-            // 'ssl'      => true,
-            // 'timeout'  => 30,
+             'passive'  => true,
+             'ssl'      => true,
+             'timeout'  => 30,
         ],
     ],
 
