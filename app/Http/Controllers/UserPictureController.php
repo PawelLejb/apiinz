@@ -10,7 +10,7 @@ use Validator;
 use DB;
 class UserPictureController extends Controller
 {
-    public function addPicture(Request $request) {
+   public function addPicture(Request $request) {
         $user=auth()->user();
         $user->id;
 
@@ -35,7 +35,7 @@ class UserPictureController extends Controller
         $userPicutre = User_picture::create(array_merge(
             $constant_values_array
         ));
-
+        $user->update(array('profilePic'=>"http://studenthelperappapiftp.prv.pl/studenthelperappapi/" . $filenametostore));
         return response()->json([
             'message' => 'Dodałeś zdjęcie',
             'userPicture' => $userPicutre
