@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User_picture;
+use Illuminate\Support\Facades\Storage;
 use JWTAuth;
 use Validator;
 use DB;
