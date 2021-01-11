@@ -66,7 +66,7 @@ return [
         ],
        'custom-ftp' => [
 
-            'driver' => env('ftp'),
+            'driver' => 'ftp',
 
             'host' => env('studenthelperappapiftp.prv.pl'),
 
