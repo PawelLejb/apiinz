@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User_picture;
 use Illuminate\Support\Facades\Storage;
+use League\Flysystem\Adapter\Ftp as FtpAdapter;
+protected $transferMode = FTP_BINARY;
 use JWTAuth;
 use Validator;
 use DB;
