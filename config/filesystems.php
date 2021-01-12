@@ -75,12 +75,10 @@ return [
             'password' => env('Ebay1234'),
 
             // Optional FTP Settings...
-             'port'     => 21,
+  
               'root' => '/studenthelperappapi',
              'ssl' => true,
-    'timeout' => 90,		// connect timeout
-    'sslVerifyPeer' => 0, // using 0 is insecure, use it only if you know what you're doing
-    'sslVerifyHost' => 0, // using 0 is insecure, use it only if you know what you're doing
+    'timeout' => 90		// connect timeout
     
    
         ],
