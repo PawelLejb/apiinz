@@ -77,9 +77,12 @@ return [
             // Optional FTP Settings...
              'port'     => 21,
               'root' => '/studenthelperappapi',
-             'passive'  => true,
-             'ssl'      => true,
-             'timeout'  => 30,
+             'ssl' => true,
+    'timeout' => 90,		// connect timeout
+    'sslVerifyPeer' => 0, // using 0 is insecure, use it only if you know what you're doing
+    'sslVerifyHost' => 0, // using 0 is insecure, use it only if you know what you're doing
+    
+   
         ],
     ],
 
