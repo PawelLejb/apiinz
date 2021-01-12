@@ -65,13 +65,13 @@ return [
             'endpoint' => env('AWS_ENDPOINT'),
         ],
        'custom-ftp' => [
-            driver => 'ftp',
-            passive => 'true',
-            host => env('studenthelperappftp.cba.pl'),
-            port=>'21',
-            username => env('studenthelperappftp'),
+            //driver => 'ftp',
+           // passive => 'true',
+           // host => env('studenthelperappftp.cba.pl'),
+           // port=>'21',
+          //  username => env('studenthelperappftp'),
 
-            password => env('Ebay1234'),
+            //password => env('Ebay1234'),
 
             // Optional FTP Settings...
          

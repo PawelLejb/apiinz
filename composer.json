@@ -9,12 +9,13 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "ext-ftp": "*",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
-        "ext-ftp":"*",
+        "league/flysystem-aws-s3-v3": "~1.0",
         "nesbot/carbon": "^2.42",
         "tymon/jwt-auth": "^1.0"
     },
