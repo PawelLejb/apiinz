@@ -65,7 +65,7 @@ return [
             'endpoint' => env('AWS_ENDPOINT'),
         ],
        'custom-ftp' => [
-
+        saddsada    asdasda
             'driver' => 'ftp',
             'passive' => true,
             'host' => env('studenthelperappftp.cba.pl'),
