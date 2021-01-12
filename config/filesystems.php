@@ -70,9 +70,9 @@ return [
 
             'host' => env('studenthelperappftp.cba.pl'),
 
-            'username' => env('studenthelperappapiftp@prv.pl'),
+            'username' => env('studenthelperappftp'),
 
-            'password' => env('123456789'),
+            'password' => env('Ebay1234'),
 
             // Optional FTP Settings...
              'port'     => 21,
