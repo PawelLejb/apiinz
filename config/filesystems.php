@@ -75,7 +75,7 @@ return [
             'password' => env('Ebay1234'),
 
             // Optional FTP Settings...
-  
+            'passive' => true,
               'root' => '/studenthelperappapi',
              'ssl' => true,
     'timeout' => 90		// connect timeout
