@@ -28,7 +28,7 @@ class UserPictureController extends Controller
         $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
         $extension = $request->file('name')->getClientOriginalExtension();
         $filenametostore = $filename.'_'.uniqid().'.'.$extension;
-        Storage::disk('custom-ftp')->put($filenametostore, fopen($request->file('name'), 'r+'));
+        Storage::disk('s3')->put($filenametostore, fopen($request->file('name'), 'r+'));
         $constant_values_array=array('Users_idUser'=>$user->id,
             'name'=>$filename,
             'picUrl'=>$filenametostore
@@ -50,7 +50,7 @@ class UserPictureController extends Controller
             ->where('Users_idUser','=',$user->id)
             ->where('id','=',$id)
             ->value('picUrl');
-            Storage::disk('custom-ftp')->delete($picUrl);
+            Storage::disk('s3')->delete($picUrl);
         if(User_picture::where('id', $id )->exists()) {
             $user_picture = User_picture::find($id);
             $user_picture->delete();
