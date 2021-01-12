@@ -10,7 +10,7 @@ class User_picture extends Model
     use HasFactory;
     protected $fillable = [
         'id',
-        'PicUrl',
+        'picUrl',
         'name',
         'Users_idUser'
 
