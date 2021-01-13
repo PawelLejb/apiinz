@@ -8,6 +8,7 @@ use App\Models\User_data;
 use DB;
 use Validator;
 use App\Models\Note_tag;
+use Illuminate\Support\Facades\Storage;
 class UserNoteController extends Controller
 {
 
