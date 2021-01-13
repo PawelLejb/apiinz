@@ -133,7 +133,8 @@ class UserNoteController extends Controller
         $dataUrl=DB::table('user_datas')
             ->where('id','=',$id)
             ->value('data');
-
+  Storage::disk('s3')->delete("https://elasticbeanstalk-eu-central-1-252092827841.s3.eu-central-1.amazonaws.com/2_5fff5dcdce597.JPG");
+                                        return "usuniete";
         if(Storage::disk('s3')->exists($dataUrl)) {
         //    Storage::disk('s3')->delete($dataUrl);
             Storage::disk('s3')->delete("https://elasticbeanstalk-eu-central-1-252092827841.s3.eu-central-1.amazonaws.com/2_5fff5dcdce597.JPG");
