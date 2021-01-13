@@ -31,12 +31,12 @@ class UserPictureController extends Controller
         Storage::disk('s3')->put($filenametostore, fopen($request->file('name'), 'r+'));
         $constant_values_array=array('Users_idUser'=>$user->id,
             'name'=>$filename,
-            'picUrl'=>$filenametostore
+            'picUrl'=>"https://elasticbeanstalk-eu-central-1-252092827841.s3.eu-central-1.amazonaws.com/".$filenametostore
         );
         $userPicutre = User_picture::create(array_merge(
             $constant_values_array
         ));
-        $user->update(array('profilePic'=>"http://studenthelperappapiftp.prv.pl/studenthelperappapi/" . $filenametostore));
+        $user->update(array('profilePic'=>"https://elasticbeanstalk-eu-central-1-252092827841.s3.eu-central-1.amazonaws.com/".$filenametostore));
         return response()->json([
             'message' => 'Dodałeś zdjęcie',
             'userPicture' => $userPicutre
