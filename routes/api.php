@@ -64,7 +64,7 @@ Route::group([
     Route::get('userNotesData/{id}', [UserNoteController::class,'getUserNoteData']);
     Route::post('userNotesData/{id}', [UserNoteController::class,'addUserNoteData']);
     Route::put('userNotesData/{id}', [UserNoteController::class,'updateUserNoteData']);
-    Route::delete('userNotesData/{id}',[UserNoteController::class,'deleteUserNoteData']);
+    Route::delete('userNotesData/{id}',[UserNoteController::class,'deleteUserData']);
     //
      //tagi notatek
     Route::post('noteTag/{noteId}', [UserNoteController::class,'createNoteTag']);
