@@ -30,7 +30,7 @@ class CommentController extends Controller
             'comment' => 'required|string|between:1,510',
 
         ]);
-        $constant_values_array = array('Posts_idPost' => $postId, 'authorId' => auth()->user()->id, 'author' => auth()->user()->name . auth()->user()->secondName);
+        $constant_values_array = array('Posts_idPost' => $postId, 'authorId' => auth()->user()->id, 'author' => auth()->user()->name.' '.auth()->user()->secondName);
         if ($validator->fails()) {
             return response()->json($validator->errors()->toJson(), 400);
         }
