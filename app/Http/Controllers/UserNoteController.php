@@ -100,7 +100,7 @@ class UserNoteController extends Controller
 
     //Pliki do notatek
 
-    public function addUserNoteData(Request $request) {
+    public function addUserNoteData($id,Request $request) {
         $user=auth()->user();
         $userId=  $user->id;
         $validator = Validator::make($request->all(), [
@@ -116,7 +116,7 @@ class UserNoteController extends Controller
         $extension = $request->file('data')->getClientOriginalExtension();
         $filenametostore = $filename.'_'.uniqid().'.'.$extension;
         Storage::disk('s3')->put($filenametostore, fopen($request->file('data'), 'r+'));
-        $constant_values_array=array('Users_idUser'=>$userId,
+        $constant_values_array=array('User_notes_idNotes_user'=>$id,
             'dataName'=>$filename,
             'data'=>"https://elasticbeanstalk-eu-central-1-252092827841.s3.eu-central-1.amazonaws.com/".$filenametostore
         );
@@ -132,7 +132,6 @@ class UserNoteController extends Controller
     public function deleteUserUserNoteData ($id) {
         $user=auth()->user();
         $dataUrl=DB::table('user_datas')
-            ->where('Users_idUser','=',$user->id)
             ->where('id','=',$id)
             ->value('data');
         Storage::disk('s3')->delete($dataUrl);
