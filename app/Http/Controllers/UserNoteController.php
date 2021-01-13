@@ -129,7 +129,7 @@ class UserNoteController extends Controller
         ], 201);
 
     }
-    public function deleteUserUserNoteData ($id) {
+    public function deleteUserNoteData($id) {
         $user=auth()->user();
         $dataUrl=DB::table('user_datas')
             ->where('id','=',$id)
