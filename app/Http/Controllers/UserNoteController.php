@@ -130,13 +130,12 @@ class UserNoteController extends Controller
 
     }
     public function deleteUserNoteData($id) {
-        $user=auth()->user();
+       return 0;
         $dataUrl=DB::table('user_datas')
             ->where('id','=',$id)
             ->value('data');
         
         if(Storage::disk('s3')->exists($dataUrl)) {
-            return 0;
         Storage::disk('s3')->delete($dataUrl);
         }
         if(User_data::where('id', $id )->exists()) {
