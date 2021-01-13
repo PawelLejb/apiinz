@@ -102,20 +102,39 @@ class UserNoteController extends Controller
     public function addUserNoteData(Request $request) {
         $user=auth()->user();
         $userId=  $user->id;
-        $user_data = new User_data;
-        $user_data->dataName = $request->dataName;
-        $user_data->data = $request->data;
-        $user_data->User_notes_idNotes_user=$userId;
-        $user_data->save();
+        $validator = Validator::make($request->all(), [
+            'data'=>'required|file|mimes:png,jpg,jpeg,pdf,docx,xlsx,csv,txt,zip,rar|max:2048|min:1',
 
+        ]);
+        if($validator->fails()) {
+
+            return response()->json(['error'=>$validator->errors()], 401);
+        }
+        $filenamewithextension = $request->file('data')->getClientOriginalName();
+        $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
+        $extension = $request->file('data')->getClientOriginalExtension();
+        $filenametostore = $filename.'_'.uniqid().'.'.$extension;
+        Storage::disk('s3')->put($filenametostore, fopen($request->file('data'), 'r+'));
+        $constant_values_array=array('Users_idUser'=>$userId,
+            'dataName'=>$filename,
+            'data'=>"https://elasticbeanstalk-eu-central-1-252092827841.s3.eu-central-1.amazonaws.com/".$filenametostore
+        );
+        $userPicutre = User_data::create(array_merge(
+            $constant_values_array
+        ));
         return response()->json([
-            "message" => "Dodano plik do notatki"
+            'message' => 'Dodałeś zdjęcie',
+            'userPicture' => $userPicutre
         ], 201);
 
     }
     public function deleteUserUserNoteData ($id) {
         $user=auth()->user();
-         $user->id;
+        $dataUrl=DB::table('user_datas')
+            ->where('Users_idUser','=',$user->id)
+            ->where('id','=',$id)
+            ->value('data');
+        Storage::disk('s3')->delete($dataUrl);
         if(User_data::where('id', $id )->exists()) {
             $user_data = User_data::find($id);
             $user_data->delete();
