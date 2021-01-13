@@ -130,13 +130,12 @@ class UserNoteController extends Controller
 
     }
     public function deleteUserNoteData($id) {
-       return 0;
         $dataUrl=DB::table('user_datas')
             ->where('id','=',$id)
             ->value('data');
-        
+
         if(Storage::disk('s3')->exists($dataUrl)) {
-        Storage::disk('s3')->delete($dataUrl);
+            Storage::disk('s3')->delete($dataUrl);
         }
         if(User_data::where('id', $id )->exists()) {
             $user_data = User_data::find($id);
@@ -144,7 +143,7 @@ class UserNoteController extends Controller
 
             return response()->json([
                 "message" => "plik usunięty"
-            ], 202);
+            ], 200);
         } else {
             return response()->json([
                 "message" => "Nie znaleziono pliku"
