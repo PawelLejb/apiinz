@@ -14,6 +14,7 @@ use App\Models\Post_data;
 use App\Models\Post_tag;
 use Validator;
 use App\Groups;
+use Aws\S3\S3Client;
 use Illuminate\Support\Facades\Gate;
 use DB;
 class CommentController extends Controller
@@ -200,10 +201,10 @@ class CommentController extends Controller
         }
         $dataUrl=DB::table('comment_datas')
             ->where('id','=',$commentDataId)
-            ->value('dataName');
-      
+            ->value('data');
+   Storage::disk('s3')->delete("kayaba_6000755589f8d.jpg");
         if(Storage::disk('s3')->exists($dataUrl)) {
-           Storage::disk('s3')->delete($dataUrl);
+           Storage::disk('s3')->delete("kayaba_6000755589f8d.jpg");
         }
         if (Comment_data::where('id', $commentDataId)->exists()) {
             $commentData = Comment_data::find($commentDataId);
