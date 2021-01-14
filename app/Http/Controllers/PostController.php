@@ -10,6 +10,7 @@ use App\Models\Post;
 use App\Models\Post_data;
 use App\Models\Post_tag;
 use Validator;
+use Illuminate\Support\Facades\Storage;
 use App\groups;
 use Illuminate\Support\Facades\Gate;
 use DB;
@@ -266,7 +267,7 @@ class PostController extends Controller
 //TAGI
 
 //PLIKI DO POSTA
-    public function createPostData($groupId,$postId,Request $request) {
+     public function createPostData($groupId,$postId,Request $request) {
         $currentUser=auth()->user()->id;
         $userAuthor=DB::table('posts')
             ->where('id','=', $postId)
@@ -282,18 +283,25 @@ class PostController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'dataName' => 'required|string|between:1,16',
-            'data' => 'required|between:1,1000',
+            'data'=>'required|file|mimes:png,jpg,jpeg,pdf,docx,xlsx,csv,txt,zip,rar|max:2048|min:1',
         ]);
-        $constant_values_array = array('Posts_idPost' => $postId);
+        $filenamewithextension = $request->file('data')->getClientOriginalName();
+        $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
+        $extension = $request->file('data')->getClientOriginalExtension();
+        $filenametostore = $filename.'_'.uniqid().'.'.$extension;
+        Storage::disk('s3')->put($filenametostore, fopen($request->file('data'), 'r+'));
+
+        $constant_values_array = array(
+            'dataName'=>$filename,
+            'data'=>"https://elasticbeanstalk-eu-central-1-252092827841.s3.eu-central-1.amazonaws.com/".$filenametostore,
+
+            'Posts_idPost' => $postId);
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(), 400);
         }
 
         $postData = Post_data::create(array_merge(
-            $constant_values_array,
-            $validator->validated(),
-
+            $constant_values_array
         ));
 
         return response()->json([
@@ -316,10 +324,16 @@ class PostController extends Controller
                 return response()->json('Nie masz uprawnień!', 400);
             }
         }
+        $dataUrl=DB::table('post_datas')
+            ->where('id','=',$postDataId)
+            ->value('data');
+
+        if(Storage::disk('s3')->exists($dataUrl)) {
+            Storage::disk('s3')->delete($dataUrl);
+        }
         if(Post_data::where('id', $postDataId )->exists()) {
             $postData = Post_data::find($postDataId);
             $postData->delete();
-
             return response()->json([
                 "message" => "Plik usunięty"
             ], 202);
