@@ -203,7 +203,7 @@ class CommentController extends Controller
             ->value('data');
 
         if(Storage::disk('s3')->exists($dataUrl)) {
-            Storage::disk('s3')->delete($dataUrl);
+           $response= Storage::disk('s3')->delete($dataUrl);
         }
         if (Comment_data::where('id', $commentDataId)->exists()) {
             $commentData = Comment_data::find($commentDataId);
