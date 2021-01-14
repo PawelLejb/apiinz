@@ -200,8 +200,8 @@ class CommentController extends Controller
         }
         $dataUrl=DB::table('comment_datas')
             ->where('id','=',$commentDataId)
-            ->value('data');
-            return $dataUrl;
+            ->value('dataName');
+      
         if(Storage::disk('s3')->exists($dataUrl)) {
            Storage::disk('s3')->delete($dataUrl);
         }
