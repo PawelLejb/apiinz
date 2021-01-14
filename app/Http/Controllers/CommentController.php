@@ -154,17 +154,24 @@ class CommentController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'dataName' => 'required|string|between:1,16',
-            'data' => 'required|between:1,1000',
+            'data'=>'required|file|mimes:png,jpg,jpeg,pdf,docx,xlsx,csv,txt,zip,rar|max:2048|min:1',
         ]);
-        $constant_values_array = array('Comments_idComment' => $commentId);
+        $filenamewithextension = $request->file('data')->getClientOriginalName();
+        $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
+        $extension = $request->file('data')->getClientOriginalExtension();
+        $filenametostore = $filename.'_'.uniqid().'.'.$extension;
+        Storage::disk('s3')->put($filenametostore, fopen($request->file('data'), 'r+'));
+        
+        $constant_values_array = array(
+            'dataName'=>$filename,
+            'data'=>"https://elasticbeanstalk-eu-central-1-252092827841.s3.eu-central-1.amazonaws.com/".$filenametostore,
+            'Comments_idComment' => $commentId);
         if ($validator->fails()) {
             return response()->json($validator->errors()->toJson(), 400);
         }
 
         $commentData = Comment_data::create(array_merge(
-            $constant_values_array,
-            $validator->validated(),
+            $constant_values_array
 
         ));
 
@@ -189,6 +196,13 @@ class CommentController extends Controller
             if ($userRole != 'god' || $userRole != 'admin') {
                 return response()->json('Nie masz uprawnień!', 400);
             }
+        }
+        $dataUrl=DB::table('comment_datas')
+            ->where('id','=',$commentDataId)
+            ->value('data');
+
+        if(Storage::disk('s3')->exists($dataUrl)) {
+            Storage::disk('s3')->delete($dataUrl);
         }
         if (Comment_data::where('id', $commentDataId)->exists()) {
             $commentData = Comment_data::find($commentDataId);
