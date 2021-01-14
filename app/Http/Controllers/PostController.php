@@ -293,7 +293,7 @@ class PostController extends Controller
 
         $constant_values_array = array(
             'dataName'=>$filename,
-            'data'=>"https://elasticbeanstalk-eu-central-1-252092827841.s3.eu-central-1.amazonaws.com/".$filenametostore,
+            'data'=>$filenametostore,
 
             'Posts_idPost' => $postId);
         if($validator->fails()){
