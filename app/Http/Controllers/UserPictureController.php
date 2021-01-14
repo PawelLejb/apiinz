@@ -36,7 +36,7 @@ class UserPictureController extends Controller
         $userPicutre = User_picture::create(array_merge(
             $constant_values_array
         ));
-        $user->update(array('profilePic'=>"https://elasticbeanstalk-eu-central-1-252092827841.s3.eu-central-1.amazonaws.com/".$filenametostore));
+        $user->update(array('profilePic'=>$filenametostore));
         return response()->json([
             'message' => 'Dodałeś zdjęcie',
             'userPicture' => $userPicutre
