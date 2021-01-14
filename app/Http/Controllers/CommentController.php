@@ -210,7 +210,8 @@ class CommentController extends Controller
             $commentData->delete();
 
             return response()->json([
-                "message" => "Plik usunięty"
+                //      "message" => "Plik usunięty",
+                "message" => $response
             ], 202);
         } else {
             return response()->json([
