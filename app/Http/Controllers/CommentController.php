@@ -203,15 +203,15 @@ class CommentController extends Controller
             ->value('data');
 
         if(Storage::disk('s3')->exists($dataUrl)) {
-           $response= Storage::disk('s3')->delete($dataUrl);
+           Storage::disk('s3')->delete($dataUrl);
         }
         if (Comment_data::where('id', $commentDataId)->exists()) {
             $commentData = Comment_data::find($commentDataId);
             $commentData->delete();
 
             return response()->json([
-                //      "message" => "Plik usunięty",
-                "message" => $response
+                     "message" => "Plik usunięty",
+               
             ], 202);
         } else {
             return response()->json([
