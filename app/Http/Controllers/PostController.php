@@ -145,7 +145,9 @@ class PostController extends Controller
         $currentUser=auth()->user()->id;
         $post = DB::table('posts')
             ->join('group_users','posts.Groups_idGroup','=','group_users.Groups_idGroup')
-            ->select('posts.id','posts.title','posts.author','posts.authorId','posts.updated_at','posts.created_at','posts.Groups_idGroup','posts.post','group_users.role')
+            ->join('comments','posts.id','=','comments.Posts_idPost')
+            ->select('posts.id','posts.title','posts.author','posts.authorId','posts.updated_at','posts.created_at','posts.Groups_idGroup','posts.post','group_users.role',DB::raw('count(comments.Posts_idPost) as commentCount'))
+                ->groupBy('comments.Posts_idPost')
             ->where('group_users.Users_idUser','=',$currentUser)
             ->where('group_users.role','!=','unverified')
             ->orderBy('created_at')
@@ -163,7 +165,9 @@ class PostController extends Controller
             return response()->json('Nie masz uprawnień!', 400);
         }
         $post = DB::table('posts')
-           ->select('posts.id','posts.title','posts.author','posts.authorId','posts.post','posts.updated_at','posts.created_at','posts.Groups_idGroup')
+            ->join('comments','posts.id','=','comments.Posts_idPost')
+           ->select('posts.id','posts.title','posts.author','posts.authorId','posts.post','posts.updated_at','posts.created_at','posts.Groups_idGroup',DB::raw('count(comments.Posts_idPost) as commentCount'))
+                ->groupBy('comments.Posts_idPost')
             ->where('Groups_idGroup','=',$groupId)
             ->orderBy('created_at')
             ->get()->toJson(JSON_PRETTY_PRINT);
