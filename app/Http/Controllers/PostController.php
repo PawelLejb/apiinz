@@ -125,7 +125,7 @@ class PostController extends Controller
 
             $post = DB::table('posts')
                  ->join('comments','posts.id','=','comments.Posts_idPost')
-                ->select('posts.id','posts.title','posts.post','posts.author','posts.authorId','posts.updated_at','posts.created_at','posts.Groups_idGroup','count(comments.Posts_idPost) as commentCount')
+                ->select('posts.id','posts.title','posts.post','posts.author','posts.authorId','posts.updated_at','posts.created_at','posts.Groups_idGroup',count('comments.Posts_idPost) as commentCount'))
                 ->groupBy('Posts_idPost')
                 ->where('posts.id','=',$postId)
               
