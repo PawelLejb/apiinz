@@ -147,7 +147,7 @@ class PostController extends Controller
             ->join('group_users','posts.Groups_idGroup','=','group_users.Groups_idGroup')
             ->join('comments','posts.id','=','comments.Posts_idPost')
             ->select('posts.id','posts.title','posts.author','posts.authorId','posts.updated_at','posts.created_at','posts.Groups_idGroup','posts.post','group_users.role',DB::raw('count(comments.Posts_idPost) as commentCount'))
-                ->groupBy('comments.Posts_idPost')
+    
             ->where('group_users.Users_idUser','=',$currentUser)
             ->where('group_users.role','!=','unverified')
             ->orderBy('created_at')
