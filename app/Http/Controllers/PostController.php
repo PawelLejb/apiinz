@@ -109,6 +109,7 @@ class PostController extends Controller
             ], 404);
         }
     }
+    /*
     public function getPost($groupId,$postId) {
         $currentUser=auth()->user()->id;
         if (Post::where('id', $postId )->exists()) {
@@ -122,6 +123,33 @@ class PostController extends Controller
 
             $post = DB::table('posts')
                 ->select('posts.id','posts.title','posts.post','posts.author','posts.authorId','posts.updated_at','posts.created_at','posts.Groups_idGroup')
+                ->where('id','=',$postId)
+                ->get()->toJson(JSON_PRETTY_PRINT);
+
+            return response($post, 200);
+        } else {
+            return response()->json([
+                "message" => "Nie znaleziono wydarzenia"
+            ], 404);
+        }
+
+    }
+    */
+    public function getPost($groupId,$postId) {
+        $currentUser=auth()->user()->id;
+        if (Post::where('id', $postId )->exists()) {
+        $userRole=DB::table('group_users')
+            ->where('Users_idUser','=', $currentUser)
+            ->where('Groups_idGroup','=',$groupId)
+            ->value('role');
+        if($userRole=='unverified' || $userRole==''){
+            return response()->json('Nie masz uprawnień!', 400);
+        }
+
+            $post = DB::table('posts')
+                ->join('comments','posts.id','=','comments.Posts_idPost')
+                ->select('posts.id','posts.title','posts.post','posts.author','posts.authorId','posts.updated_at','posts.created_at','posts.Groups_idGroup','count(Posts_idPost)')
+                
                 ->where('id','=',$postId)
                 ->get()->toJson(JSON_PRETTY_PRINT);
 
