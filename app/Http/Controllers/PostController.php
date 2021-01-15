@@ -114,8 +114,10 @@ class PostController extends Controller
         $currentUser=auth()->user()->id;
         if (Post::where('id', $postId )->exists()) {
         $userRole=DB::table('group_users')
+            ->join('comments','posts.id','=','comments.Posts_idPost')
             ->where('Users_idUser','=', $currentUser)
             ->where('Groups_idGroup','=',$groupId)
+            ->groupBy('Posts_idPost')
             ->value('role');
         if($userRole=='unverified' || $userRole==''){
             return response()->json('Nie masz uprawnień!', 400);
