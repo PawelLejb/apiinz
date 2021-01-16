@@ -166,7 +166,7 @@ class PostController extends Controller
         $post = DB::table('posts')
 
            ->select('posts.id','posts.title','posts.author','posts.authorId','posts.post','posts.updated_at','posts.created_at','posts.Groups_idGroup')
-                ->groupBy('comments.Posts_idPost')
+           
             ->where('Groups_idGroup','=',$groupId)
  
             ->get()->toJson(JSON_PRETTY_PRINT);
