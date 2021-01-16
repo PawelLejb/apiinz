@@ -131,7 +131,7 @@ class CommentController extends Controller
         }
         $comment = DB::table('comments')
               ->join('users','users.id','=','comments.authorId')
-            ->select('comments.id', 'comments.comment', 'comments.author', 'comments.authorId', 'comments.updated_at', 'comments.created_at', 'comments.Posts_idPost','users.profilePic')
+            ->select('comments.id', 'comments.comment', 'comments.authorId', 'comments.updated_at', 'comments.created_at', 'comments.Posts_idPost','users.profilePic','users.name','users.secondName')
             ->where('Posts_idPost', '=', $postId)
             ->orderBy('created_at')
             ->get()->toJson(JSON_PRETTY_PRINT);
