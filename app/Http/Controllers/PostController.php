@@ -304,7 +304,7 @@ class PostController extends Controller
 
         $constant_values_array = array(
             'dataName'=>$filename,
-            'data'=>$filenametostore,
+            'data'=>'https://elasticbeanstalk-eu-central-1-252092827841.s3.eu-central-1.amazonaws.com/'.$filenametostore,
 
             'Posts_idPost' => $postId);
         if($validator->fails()){
@@ -340,7 +340,7 @@ class PostController extends Controller
             ->value('data');
 
         if(Storage::disk('s3')->exists($dataUrl)) {
-            Storage::disk('s3')->delete($dataUrl);
+            Storage::disk('s3')->delete(str_replace('https://elasticbeanstalk-eu-central-1-252092827841.s3.eu-central-1.amazonaws.com/','',$dataUrl));
         }
         if(Post_data::where('id', $postDataId )->exists()) {
             $postData = Post_data::find($postDataId);
