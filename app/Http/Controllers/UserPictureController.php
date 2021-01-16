@@ -25,8 +25,7 @@ class UserPictureController extends Controller
             return response()->json(['error'=>$validator->errors()], 401);
         }
       if(User_picture::where('Users_idUser', $user->id )->exists()) {
-            $user_picture = User_picture::where('Users_idUser', $user->id );
-          return $userPic->picUrl;  
+            $user_picture = User_picture::where('Users_idUser', $user->id ); 
           foreach($user_picture as $userPic){
                 return $userPic->picUrl;
                 Storage::disk('s3')->delete($userPic->picUrl);
