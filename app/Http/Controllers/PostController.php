@@ -124,7 +124,7 @@ class PostController extends Controller
         }
 
             $post = DB::table('posts')
-                 ->join('users','users.id','=','posts.posts.authorId')
+                 ->join('users','users.id','=','posts.authorId')
                 ->select('posts.id','posts.title','posts.post','posts.author','posts.authorId','posts.updated_at','posts.created_at','posts.Groups_idGroup','users.profilePic')
                 ->where('posts.id','=',$postId)
               
