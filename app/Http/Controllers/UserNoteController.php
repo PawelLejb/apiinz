@@ -135,7 +135,7 @@ class UserNoteController extends Controller
             ->value('data');
   
                                      
-        if(Storage::disk('s3')->exists(str_replace('https://elasticbeanstalk-eu-central-1-252092827841.s3.eu-central-1.amazonaws.com/','',$dataUrl)) {
+        if(Storage::disk('s3')->exists(str_replace('https://elasticbeanstalk-eu-central-1-252092827841.s3.eu-central-1.amazonaws.com/','',$dataUrl))) {
            Storage::disk('s3')->delete(str_replace('https://elasticbeanstalk-eu-central-1-252092827841.s3.eu-central-1.amazonaws.com/','',$dataUrl));
            
                                    
