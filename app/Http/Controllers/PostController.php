@@ -144,8 +144,8 @@ class PostController extends Controller
         $currentUser=auth()->user()->id;
         $post = DB::table('posts')
             ->join('group_users','posts.Groups_idGroup','=','group_users.Groups_idGroup')
-       
-            ->select('posts.id','posts.title','posts.author','posts.authorId','posts.updated_at','posts.created_at','posts.Groups_idGroup','posts.post','group_users.role')
+             ->join('users','users.id','=','posts.authorId')
+            ->select('posts.id','posts.title','posts.author','posts.authorId','posts.updated_at','posts.created_at','posts.Groups_idGroup','posts.post','group_users.role','users.profilePic')
     
             ->where('group_users.Users_idUser','=',$currentUser)
             ->where('group_users.role','!=','unverified')
@@ -164,8 +164,8 @@ class PostController extends Controller
             return response()->json('Nie masz uprawnień!', 400);
         }
         $post = DB::table('posts')
-
-           ->select('posts.id','posts.title','posts.author','posts.authorId','posts.post','posts.updated_at','posts.created_at','posts.Groups_idGroup')
+             ->join('users','users.id','=','posts.authorId')
+           ->select('posts.id','posts.title','posts.author','posts.authorId','posts.post','posts.updated_at','posts.created_at','posts.Groups_idGroup','users.profilePic')
            
             ->where('Groups_idGroup','=',$groupId)
  
