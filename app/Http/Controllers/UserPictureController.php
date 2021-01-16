@@ -26,7 +26,7 @@ class UserPictureController extends Controller
         }
       if(User_picture::where('Users_idUser', $user->id )->exists()) {
             $user_picture = User_picture::where('Users_idUser', $user->id ); 
-          return $user_picture->picUrl;
+         // return $user_picture->picUrl;
          
                 Storage::disk('s3')->delete($userPic->picUrl);
             
