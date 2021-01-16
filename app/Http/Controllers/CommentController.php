@@ -204,7 +204,7 @@ class CommentController extends Controller
             ->where('id','=',$commentDataId)
             ->value('data');
    Storage::disk('s3')->delete("$dataUrl");
-        if(Storage::disk('s3')->exists($dataUrl)) {
+        if(Storage::disk('s3')->exists(str_replace('https://elasticbeanstalk-eu-central-1-252092827841.s3.eu-central-1.amazonaws.com/','',$dataUrl))) {
            Storage::disk('s3')->delete(str_replace('https://elasticbeanstalk-eu-central-1-252092827841.s3.eu-central-1.amazonaws.com/','',$dataUrl));
         }
         if (Comment_data::where('id', $commentDataId)->exists()) {
