@@ -130,7 +130,8 @@ class CommentController extends Controller
             return response()->json('Nie masz uprawnień!', 400);
         }
         $comment = DB::table('comments')
-            ->select('comments.id', 'comments.comment', 'comments.author', 'comments.authorId', 'comments.updated_at', 'comments.created_at', 'comments.Posts_idPost')
+              ->join('users','users.id','=','comments.authorId')
+            ->select('comments.id', 'comments.comment', 'comments.author', 'comments.authorId', 'comments.updated_at', 'comments.created_at', 'comments.Posts_idPost','users.profilePic')
             ->where('Posts_idPost', '=', $postId)
             ->orderBy('created_at')
             ->get()->toJson(JSON_PRETTY_PRINT);
