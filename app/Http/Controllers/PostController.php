@@ -165,7 +165,7 @@ class PostController extends Controller
             return response()->json('Nie masz uprawnień!', 400);
         }
         $post = DB::table('posts')
-            ->fulljoin('comments','posts.id','=','comments.Posts_idPost')
+            ->join('comments','posts.id','=','comments.Posts_idPost')
            ->select('posts.id','posts.title','posts.author','posts.authorId','posts.post','posts.updated_at','posts.created_at','posts.Groups_idGroup',DB::raw('count(comments.Posts_idPost) as commentCount'))
                 ->groupBy('comments.Posts_idPost')
             ->where('Groups_idGroup','=',$groupId)
