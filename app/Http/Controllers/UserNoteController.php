@@ -118,7 +118,7 @@ class UserNoteController extends Controller
         Storage::disk('s3')->put($filenametostore, fopen($request->file('data'), 'r+'));
         $constant_values_array=array('User_notes_idNotes_user'=>$id,
             'dataName'=>$filename,
-            'data'=>$filenametostore
+            'data'=>'https://elasticbeanstalk-eu-central-1-252092827841.s3.eu-central-1.amazonaws.com/'.$filenametostore
         );
         $userPicutre = User_data::create(array_merge(
             $constant_values_array
@@ -136,7 +136,7 @@ class UserNoteController extends Controller
   
                                      
         if(Storage::disk('s3')->exists($dataUrl)) {
-           Storage::disk('s3')->delete($dataUrl);
+           Storage::disk('s3')->delete(str_replace('https://elasticbeanstalk-eu-central-1-252092827841.s3.eu-central-1.amazonaws.com/','',$dataUrl));
            
                                    
         }
