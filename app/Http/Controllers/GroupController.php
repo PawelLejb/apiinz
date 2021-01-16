@@ -112,8 +112,7 @@ class GroupController extends Controller
         if($role=='god'|| $role =='admin') {
             $validator = Validator::make($request->all(), [
                 'name' => 'string|between:2,100',
-                'description' => 'min:1',
-                'picture' => '',
+                'description' => 'min:1'
             ]);
 
             if ($validator->fails()) {
@@ -288,7 +287,60 @@ public function searchGroup($term) {
 
         return response($search, 200);
     }
+public function addGroupPic($groupId,Request $request) {
+        $role = DB::table('group_users')
+            ->where('Users_idUser', '=', auth()->user()->id)
+            ->where('Groups_idGroup', '=', $groupId)
+            ->value('role');
+        if($role=='god'|| $role =='admin') {
+            $validator = Validator::make($request->all(), [
+                'picture' => 'required|file|mimes:png,jpg,jpeg|max:1024|min:1'
+            ]);
 
+            if ($validator->fails()) {
+                return response()->json($validator->errors()->toJson(), 400);
+            }
+            if(Group::where('id', $groupId )->exists()) {
+                $groupPicture = Group::where('id', $groupId)->get();
+                foreach($groupPicture as $groupPic){
+                    Storage::disk('s3')->delete(str_replace('https://elasticbeanstalk-eu-central-1-252092827841.s3.eu-central-1.amazonaws.com/','',$groupPic->picture));
+                }
+            }
+            $filenamewithextension = $request->file('picture')->getClientOriginalName();
+            $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
+            $extension = $request->file('picture')->getClientOriginalExtension();
+            $filenametostore = $filename.'_'.uniqid().'.'.$extension;
+            Storage::disk('s3')->put($filenametostore, fopen($request->file('picture'), 'r+'));
+            $group= Group::find($groupId);
+            $group->update(array('picture'=>"https://elasticbeanstalk-eu-central-1-252092827841.s3.eu-central-1.amazonaws.com/".$filenametostore));
+            return response()->json([
+                'message' => 'zmodyfikowano dane w grupie!',
+                'group' => $group
+            ], 201);
+        }else {
+            return response()->json('Nie masz uprawnień!', 400);
+        }
+    }
+
+    public function deleteGroupPic ($groupId) {
+        $role = DB::table('group_users')
+            ->where('Users_idUser', '=', auth()->user()->id)
+            ->where('Groups_idGroup', '=', $groupId)
+            ->value('role');
+        if($role=='god'|| $role =='admin') {
+            $picUrl=DB::table('groups')
+                ->where('id','=',$groupId)
+                ->value('picture');
+            Storage::disk('s3')->delete(str_replace('https://elasticbeanstalk-eu-central-1-252092827841.s3.eu-central-1.amazonaws.com/','',$picUrl));
+            $group= Group::find($groupId);
+            $group->update(array('picture'=>''));
+            return response()->json([
+                'message' => 'Usunięto zdjęcie',
+            ], 201);
+        }else {
+            return response()->json('Nie masz uprawnień!', 400);
+        }
+    }
 
 
 
