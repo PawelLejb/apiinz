@@ -143,6 +143,10 @@ Route::group([
     Route::put('groupUser/{userId}/{groupId}/{role}', [GroupController::class,'updateUserGroup']);
     Route::put('group/{groupId}', [GroupController::class,'updateGroup']);
     Route::get('searchGroup/{term}', [GroupController::class,'searchGroup']);
+    
+    Route::post('groupUserPic/{groupId}', [GroupController::class,'addGroupPic']);
+    Route::delete('groupUserPic/{groupId}', [GroupController::class,'deleteGroupPic']);
+    
     //
     //POSTY
     Route::post('post/{groupId}', [PostController::class,'createPost']);
