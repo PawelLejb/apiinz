@@ -167,7 +167,7 @@ class CommentController extends Controller
 
         $constant_values_array = array(
             'dataName'=>$filename,
-            'data'=>$filenametostore,
+            'data'=>'https://elasticbeanstalk-eu-central-1-252092827841.s3.eu-central-1.amazonaws.com/'.$filenametostore,
             'Comments_idComment' => $commentId);
         if ($validator->fails()) {
             return response()->json($validator->errors()->toJson(), 400);
@@ -205,7 +205,7 @@ class CommentController extends Controller
             ->value('data');
    Storage::disk('s3')->delete("$dataUrl");
         if(Storage::disk('s3')->exists($dataUrl)) {
-           Storage::disk('s3')->delete($dataUrl);
+           Storage::disk('s3')->delete(str_replace('https://elasticbeanstalk-eu-central-1-252092827841.s3.eu-central-1.amazonaws.com/','',$dataUrl));
         }
         if (Comment_data::where('id', $commentDataId)->exists()) {
             $commentData = Comment_data::find($commentDataId);
