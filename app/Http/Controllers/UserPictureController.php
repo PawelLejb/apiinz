@@ -26,8 +26,12 @@ class UserPictureController extends Controller
         }
        if(User_picture::where('Users_idUser', $user->id )->exists()) {
             $user_picture = User_picture::where('Users_idUser', $user->id );
+            foreach($user_picture as $picUrl){
+                Storage::disk('s3')->delete($picUrl['picUrl']);
+            }
+            $user_picture = User_picture::where('Users_idUser', $user->id );
             $user_picture->delete();
-       }
+        }
         $filenamewithextension = $request->file('name')->getClientOriginalName();
         $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
         $extension = $request->file('name')->getClientOriginalExtension();
