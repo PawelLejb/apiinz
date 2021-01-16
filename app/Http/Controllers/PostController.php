@@ -124,7 +124,7 @@ class PostController extends Controller
         }
 
             $post = DB::table('posts')
-                 ->join('comments','posts.id','=','comments.Posts_idPost')
+                 ->leftjoin('comments','posts.id','=','comments.Posts_idPost')
                 ->select('posts.id','posts.title','posts.post','posts.author','posts.authorId','posts.updated_at','posts.created_at','posts.Groups_idGroup',DB::raw('count(comments.Posts_idPost) as commentCount'))
                 ->groupBy('comments.Posts_idPost')
                 ->where('posts.id','=',$postId)
