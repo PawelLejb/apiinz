@@ -124,9 +124,8 @@ class PostController extends Controller
         }
 
             $post = DB::table('posts')
-                 ->leftjoin('comments','posts.id','=','comments.Posts_idPost')
+
                 ->select('posts.id','posts.title','posts.post','posts.author','posts.authorId','posts.updated_at','posts.created_at','posts.Groups_idGroup',DB::raw('count(comments.Posts_idPost) as commentCount'))
-                ->groupBy('comments.Posts_idPost')
                 ->where('posts.id','=',$postId)
               
                 ->get()->toJson(JSON_PRETTY_PRINT);
@@ -165,11 +164,11 @@ class PostController extends Controller
             return response()->json('Nie masz uprawnień!', 400);
         }
         $post = DB::table('posts')
-            ->fulljoin('comments','posts.id','=','comments.Posts_idPost')
+
            ->select('posts.id','posts.title','posts.author','posts.authorId','posts.post','posts.updated_at','posts.created_at','posts.Groups_idGroup',DB::raw('count(comments.Posts_idPost) as commentCount'))
                 ->groupBy('comments.Posts_idPost')
             ->where('Groups_idGroup','=',$groupId)
-            ->orderBy('created_at')
+ 
             ->get()->toJson(JSON_PRETTY_PRINT);
 
         return response($post, 200);
