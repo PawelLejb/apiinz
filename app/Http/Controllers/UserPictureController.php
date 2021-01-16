@@ -60,7 +60,7 @@ class UserPictureController extends Controller
             ->where('Users_idUser','=',$user->id)
             ->where('id','=',$id)
             ->value('picUrl');
-            Storage::disk('s3')->delete($picUrl);
+            Storage::disk('s3')->delete(str_replace('https://elasticbeanstalk-eu-central-1-252092827841.s3.eu-central-1.amazonaws.com/','',$picUrl));
         if(User_picture::where('id', $id )->exists()) {
             $user_picture = User_picture::find($id);
             $user_picture->delete();
