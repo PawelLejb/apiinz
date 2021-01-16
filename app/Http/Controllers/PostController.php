@@ -125,7 +125,7 @@ class PostController extends Controller
 
             $post = DB::table('posts')
                  ->join('users','users.id','=','posts.authorId')
-                ->select('posts.id','posts.title','posts.post','posts.author','posts.authorId','posts.updated_at','posts.created_at','posts.Groups_idGroup','users.profilePic')
+                ->select('posts.id','posts.title','posts.post','posts.authorId','posts.updated_at','posts.created_at','posts.Groups_idGroup','users.profilePic','users.name','users.secondName')
                 ->where('posts.id','=',$postId)
               
                 ->get()->toJson(JSON_PRETTY_PRINT);
@@ -145,7 +145,7 @@ class PostController extends Controller
         $post = DB::table('posts')
             ->join('group_users','posts.Groups_idGroup','=','group_users.Groups_idGroup')
              ->join('users','users.id','=','posts.authorId')
-            ->select('posts.id','posts.title','posts.author','posts.authorId','posts.updated_at','posts.created_at','posts.Groups_idGroup','posts.post','group_users.role','users.profilePic')
+            ->select('posts.id','posts.title','posts.authorId','posts.updated_at','posts.created_at','posts.Groups_idGroup','posts.post','group_users.role','users.profilePic','users.name','users.secondName')
     
             ->where('group_users.Users_idUser','=',$currentUser)
             ->where('group_users.role','!=','unverified')
@@ -165,7 +165,7 @@ class PostController extends Controller
         }
         $post = DB::table('posts')
              ->join('users','users.id','=','posts.authorId')
-           ->select('posts.id','posts.title','posts.author','posts.authorId','posts.post','posts.updated_at','posts.created_at','posts.Groups_idGroup','users.profilePic')
+           ->select('posts.id','posts.title','posts.authorId','posts.post','posts.updated_at','posts.created_at','posts.Groups_idGroup','users.profilePic','users.name','users.secondName')
            
             ->where('Groups_idGroup','=',$groupId)
  
