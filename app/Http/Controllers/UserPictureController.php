@@ -28,7 +28,7 @@ class UserPictureController extends Controller
             $user_picture = User_picture::where('Users_idUser', $user->id )->get();
             foreach($user_picture as $userPic){
                 return $userPic->picUrl;
-                Storage::disk('s3')->delete($userPic->picUrl;);
+                Storage::disk('s3')->delete($userPic->picUrl);
             }
 
             $user_picture = User_picture::where('Users_idUser', $user->id );
