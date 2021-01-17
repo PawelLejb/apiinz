@@ -395,16 +395,13 @@ class ActivityController extends Controller
     }
     public function deleteActivityDates($id)
     {
-        $activity_date = Activity_date::where('id', $id);
-        $periodicity=DB::table('activity_dates')
-            ->where('id','=', $id)
-            ->value('periodicity');
+ 
         $periodicityDatesId=DB::table('activity_dates')
             ->where('id','=', $id)
             ->value('periodicityDatesId');
 
         if (Activity_date::where('periodicityDatesId', $periodicityDatesId)->exists()) {
-             $activity_date = Activity_date::find($id)->where('periodicityDatesId','=',$periodicityDatesId);
+            $activity_date = Activity_date::where('periodicityDatesId','=',$periodicityDatesId);
             $activity_date->delete();
 
             return response()->json([
