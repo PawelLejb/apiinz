@@ -120,7 +120,7 @@ class GroupController extends Controller
                 return response()->json($validator->errors()->toJson(), 400);
             }
 
-            $group = Group::create(array_merge(
+            $group->update(array_merge(
                 $validator->validated(),
 
             ));
