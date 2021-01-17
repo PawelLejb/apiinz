@@ -146,7 +146,7 @@ class PostController extends Controller
             ->join('group_users','posts.Groups_idGroup','=','group_users.Groups_idGroup')
              ->join('users','users.id','=','posts.authorId')
             ->join('groups','groups.id','=','posts.Groups_idGroup')
-            ->select('posts.id','posts.title','posts.authorId','posts.updated_at','posts.created_at','posts.Groups_idGroup','posts.post','group_users.role','users.profilePic','users.name','users.secondName','groups.name')
+            ->select('posts.id','posts.title','posts.authorId','posts.updated_at','posts.created_at','posts.Groups_idGroup','posts.post','group_users.role','users.profilePic','users.name','users.secondName','groups.name as groupName')
     
             ->where('group_users.Users_idUser','=',$currentUser)
             ->where('group_users.role','!=','unverified')
