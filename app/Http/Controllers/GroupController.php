@@ -110,6 +110,7 @@ class GroupController extends Controller
             ->where('Users_idUser', '=', auth()->user()->id)
             ->where('Groups_idGroup', '=', $groupId)
             ->value('role');
+        $group= Group::find($groupId);
         if($role=='god'|| $role =='admin') {
             $validator = Validator::make($request->all(), [
                 'name' => 'string|between:2,100',
