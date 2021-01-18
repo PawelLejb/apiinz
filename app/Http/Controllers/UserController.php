@@ -13,6 +13,13 @@ class UserController extends Controller
         return auth()->user();
 
     }
+    public function getSingleUser($userId) {
+        $user = User::find($userId);
+        return $user;
+        
+
+    }
+
 
     public function updateUser(Request $request) {
         $user=auth()->user();
