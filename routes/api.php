@@ -47,6 +47,8 @@ Route::group([
 
     // Dane uzytkownika
     Route::get('users', [UserController::class,'getUser']);
+    Route::get('user/{userId}', [UserController::class,'getSingleUser']);
+    
     Route::put('users', [UserController::class,'updateUser']);
     Route::delete('users',[UserController::class,'deleteUser']);
     Route::get('searchUsers/{term}',[UserController::class,'searchUser']);
