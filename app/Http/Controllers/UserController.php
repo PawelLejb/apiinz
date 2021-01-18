@@ -14,9 +14,14 @@ class UserController extends Controller
 
     }
     public function getSingleUser($userId) {
+         if (User::where('id', $userId )->exists()) {
         $user = User::find($userId);
         return $user;
+         }
         
+        return response()->json([
+                "message" => "Użytkownik nie istnieje!"
+            ], 404);
 
     }
 
