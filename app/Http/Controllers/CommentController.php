@@ -38,6 +38,9 @@ class CommentController extends Controller
         }
 
         $comment = Comment::create(array_merge(
+            auth()->user()->name,
+            auth()->user()->secondName,
+            auth()->user()->profilePic,
             $constant_values_array,
             $validator->validated(),
 
