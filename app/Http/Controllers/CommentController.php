@@ -43,12 +43,14 @@ class CommentController extends Controller
             $validator->validated(),
 
         ));
+        $constant_values_array='name' =>auth()->user()->name,
+            'secondName' =>auth()->user()->secondName,
+            'profilePic'=>auth()->user()->profilePic,
+        'Posts_idPost' => $postId,
+        'authorId' => auth()->user()->id
         $comment= array_merge(
-                              $constant_values_array,
-            $validator->validated(),
-            auth()->user()->name,
-            auth()->user()->secondName,
-            auth()->user()->profilePic);
+                       $constant_values_array,
+            $validator->validated());
                               
         return response()->json([
             'message' => 'Utworzono komentarz!',
