@@ -53,13 +53,16 @@ class UserPictureController extends Controller
         ], 201);
 
     }
-    public function deletePicture ($id) {
+    public function deletePicture() {
         $user=auth()->user();
         $user->id;
         $picUrl=DB::table('user_pictures')
             ->where('Users_idUser','=',$user->id)
-            ->where('id','=',$id)
             ->value('picUrl');
+           $id=DB::table('user_pictures')
+            ->where('Users_idUser','=',$user->id)
+            ->value('id');
+        
             Storage::disk('s3')->delete(str_replace('https://elasticbeanstalk-eu-central-1-252092827841.s3.eu-central-1.amazonaws.com/','',$picUrl));
         if(User_picture::where('id', $id )->exists()) {
             $user_picture = User_picture::find($id);
