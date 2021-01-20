@@ -38,9 +38,7 @@ class CommentController extends Controller
         }
 
         $comment = Comment::create(array_merge(
-            auth()->user()->name,
-            auth()->user()->secondName,
-            auth()->user()->profilePic,
+            
             $constant_values_array,
             $validator->validated(),
 
@@ -48,6 +46,9 @@ class CommentController extends Controller
 
         return response()->json([
             'message' => 'Utworzono komentarz!',
+            auth()->user()->name,
+            auth()->user()->secondName,
+            auth()->user()->profilePic,
             'comment' => $comment
         ], 201);
 
