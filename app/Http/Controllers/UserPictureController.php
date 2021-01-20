@@ -53,7 +53,7 @@ class UserPictureController extends Controller
         ], 201);
 
     }
-    public function deletePicture() {
+    public function deletePicture($id) {
         $user=auth()->user();
         $user->id;
         $picUrl=DB::table('user_pictures')
