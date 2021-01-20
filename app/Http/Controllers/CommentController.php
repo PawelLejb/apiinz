@@ -43,7 +43,7 @@ class CommentController extends Controller
             $validator->validated(),
 
         ));
-        $constant_values_array='name' =>auth()->user()->name,
+        $constant_values_array=array('name' =>auth()->user()->name,
             'secondName' =>auth()->user()->secondName,
             'profilePic'=>auth()->user()->profilePic,
         'Posts_idPost' => $postId,
