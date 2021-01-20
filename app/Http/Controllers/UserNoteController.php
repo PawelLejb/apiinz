@@ -35,8 +35,9 @@ class UserNoteController extends Controller
         $user_note->note = $request->note;
         $user_note->Users_idUser = $userId;
         $user_note->save();
-
+        
         return response()->json([
+            $user_note,
             "message" => "Dodano notatkę"
         ], 201);
 
