@@ -47,7 +47,7 @@ class CommentController extends Controller
             'secondName' =>auth()->user()->secondName,
             'profilePic'=>auth()->user()->profilePic,
         'Posts_idPost' => $postId,
-        'authorId' => auth()->user()->id
+        'authorId' => auth()->user()->id);
         $comment= array_merge(
                        $constant_values_array,
             $validator->validated());
