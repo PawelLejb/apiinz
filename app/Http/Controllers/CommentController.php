@@ -43,7 +43,7 @@ class CommentController extends Controller
             $validator->validated(),
 
         ));
-        $comment= array_merge($comment
+        $comment= array_merge(
                               $constant_values_array,
             $validator->validated(),
             auth()->user()->name,
