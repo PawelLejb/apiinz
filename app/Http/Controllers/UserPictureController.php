@@ -67,7 +67,7 @@ class UserPictureController extends Controller
         if(User_picture::where('id', $id )->exists()) {
             $user_picture = User_picture::find($id);
             $user_picture->delete();
-
+            $user->update(array('profilePic'=>"https://elasticbeanstalk-eu-central-1-252092827841.s3.eu-central-1.amazonaws.com/default/default_picture.jpg"));
             return response()->json([
                 "message" => "Zdjęcie usunięte"
             ], 202);
