@@ -38,14 +38,15 @@ class PostController extends Controller
             $validator->validated(),
 
         ));
-        $constant_values_array=array('name' =>auth()->user()->name,
+        $constant_values_array=array(
+            'id'=>$post['id'],
+            'name' =>auth()->user()->name,
             'secondName' =>auth()->user()->secondName,
             'profilePic'=>auth()->user()->profilePic,
                                      'Groups_idGroup' => $groupId,
                                      
         'authorId' => auth()->user()->id);
         $post1=array_merge(
-            $post,
             $constant_values_array,
             $validator->validated(),
 
