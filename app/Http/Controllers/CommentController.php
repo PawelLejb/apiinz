@@ -44,13 +44,13 @@ class CommentController extends Controller
 
         ));
         $constant_values_array=array(
+            'id'=>$comment['id'],
             'name' =>auth()->user()->name,
             'secondName' =>auth()->user()->secondName,
             'profilePic'=>auth()->user()->profilePic,
         'Posts_idPost' => $postId,
         'authorId' => auth()->user()->id);
         $comment1= array_merge(
-            $comment,
                        $constant_values_array,
             $validator->validated());
                               
