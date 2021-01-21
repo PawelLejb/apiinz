@@ -43,7 +43,7 @@ class PostController extends Controller
             'profilePic'=>auth()->user()->profilePic,
         'Posts_idPost' => $postId,
         'authorId' => auth()->user()->id);
-        $post array_merge(
+        $post=array_merge(
             $constant_values_array,
             $validator->validated(),
 
