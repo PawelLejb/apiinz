@@ -45,7 +45,7 @@ class PostController extends Controller
                                      
         'authorId' => auth()->user()->id);
         $post1=array_merge(
-            $comment,
+            $post,
             $constant_values_array,
             $validator->validated(),
 
