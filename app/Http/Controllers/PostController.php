@@ -38,7 +38,16 @@ class PostController extends Controller
             $validator->validated(),
 
         ));
+        $constant_values_array=array('name' =>auth()->user()->name,
+            'secondName' =>auth()->user()->secondName,
+            'profilePic'=>auth()->user()->profilePic,
+        'Posts_idPost' => $postId,
+        'authorId' => auth()->user()->id);
+        $post array_merge(
+            $constant_values_array,
+            $validator->validated(),
 
+        );
         return response()->json([
             'message' => 'Utworzono post!',
             'post' => $post
@@ -73,7 +82,7 @@ class PostController extends Controller
         $post->update($request->all());
         return response()->json([
             'message' => 'Udało się zmodyfikować dane.',
-            'event' => $post
+            'post' => $post
         ], 201);
 
         } else {
