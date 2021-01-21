@@ -44,14 +44,15 @@ class PostController extends Controller
                                      'Groups_idGroup' => $groupId,
                                      
         'authorId' => auth()->user()->id);
-        $post=array_merge(
+        $post1=array_merge(
+            $comment,
             $constant_values_array,
             $validator->validated(),
 
         );
         return response()->json([
             'message' => 'Utworzono post!',
-            'post' => $post
+            'post' => $post1
         ], 201);
 
     }
