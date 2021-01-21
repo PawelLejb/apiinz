@@ -41,7 +41,8 @@ class PostController extends Controller
         $constant_values_array=array('name' =>auth()->user()->name,
             'secondName' =>auth()->user()->secondName,
             'profilePic'=>auth()->user()->profilePic,
-        'Posts_idPost' => $postId,
+                                     'Groups_idGroup' => $groupId,
+                                     
         'authorId' => auth()->user()->id);
         $post=array_merge(
             $constant_values_array,
