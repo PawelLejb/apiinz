@@ -278,8 +278,7 @@ class PostController extends Controller
     }
     public function getAllPostsWithTags($groupId,$postTagId) {
         $tagName = Post_tag::where('id',$postTagId)
-            ->value('name')
-            ->get();
+            ->value('name');
         $postWithTags = DB::table('post_tags')
             ->join('posts','posts.id','=','post_tags.Posts_idPost')
             ->select('post_tags.id as post_tags.id','post_tags.name as post_tags.name',
