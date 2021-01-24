@@ -271,18 +271,21 @@ class PostController extends Controller
             ->select('post_tags.name','post_tags.created_at')
             ->where('posts.Groups_idGroup','=',$groupId)
             ->orderBy('post_tags.created_at')
-            ->distinct()
+            ->groupBy('post_tags.name')
             ->get()->toJson(JSON_PRETTY_PRINT);
 
         return response($postTags, 200);
     }
     public function getAllPostsWithTags($groupId,$postTagId) {
+        $tagName = Post_tag::where('id',$postTagId)
+            ->value('name')
+            ->get();
         $postWithTags = DB::table('post_tags')
             ->join('posts','posts.id','=','post_tags.Posts_idPost')
             ->select('post_tags.id as post_tags.id','post_tags.name as post_tags.name',
            'posts.id','posts.title','posts.author','posts.authorId','posts.updated_at','posts.created_at','posts.Groups_idGroup' )
             ->where('posts.Groups_idGroup','=',$groupId)
-            ->where('post_tags.id','=',$postTagId)
+            ->where('post_tags.name','=',$tagName)
             ->orderBy('created_at')
             ->get()->toJson(JSON_PRETTY_PRINT);
 
