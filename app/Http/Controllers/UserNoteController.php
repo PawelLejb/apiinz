@@ -242,8 +242,7 @@ class UserNoteController extends Controller
         $user=auth()->user();
         $id=$user->id;
         $tagName = Note_tag::where('id',$noteTagId)
-            ->value('name')
-            ->get();
+            ->value('name');
 
         $noteWithTags = DB::table('note_tags')
             ->join('user_notes','user_notes.id','=','note_tags.Notes_idNote')
