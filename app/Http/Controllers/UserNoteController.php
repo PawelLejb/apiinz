@@ -231,8 +231,8 @@ class UserNoteController extends Controller
         $noteTags = DB::table('note_tags')
             ->join('user_notes','user_notes.id','=','note_tags.Notes_idNote')
             ->select('note_tags.name','note_tags.id','note_tags.created_at')
-        //    ->where('user_notes.Users_idUser','=',$id)
-       //     ->orderBy('note_tags.created_at')
+            ->where('user_notes.Users_idUser','=',$id)
+            ->orderBy('note_tags.created_at')
               ->groupBy('note_tags.name')
             ->get()->toJson(JSON_PRETTY_PRINT);
 
