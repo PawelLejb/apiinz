@@ -233,7 +233,7 @@ class UserNoteController extends Controller
             ->select('note_tags.name','note_tags.id','note_tags.created_at')
             ->where('user_notes.Users_idUser','=',$id)
             ->orderBy('note_tags.created_at')
-            ->distinct()
+            ->distinct('note_tags.name')
             ->get()->toJson(JSON_PRETTY_PRINT);
 
         return response($noteTags, 200);
