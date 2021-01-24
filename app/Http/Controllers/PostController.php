@@ -268,7 +268,7 @@ class PostController extends Controller
     public function getAllTags($groupId) {
         $postTags = DB::table('post_tags')
             ->join('posts','posts.id','=','post_tags.Posts_idPost')
-            ->select('post_tags.name','post_tags.created_at')
+            ->select('post_tags.name','post_tags.created_at','post_tags.id')
             ->where('posts.Groups_idGroup','=',$groupId)
             ->orderBy('post_tags.created_at')
             ->groupBy('post_tags.name')
