@@ -8,7 +8,7 @@ use Validator;
 use Carbon\Carbon;
 class PlanController extends Controller
 {
-   
+
     public function createPlan(Request $request) {
         $user=auth()->user();
         $userId=  $user->id;
@@ -50,31 +50,7 @@ class PlanController extends Controller
 
         return response($plans, 200);
     }
-/*
-    public function getPlan($planId) {
-        $user=auth()->user();
 
-        if (Plan::where('id', $planId )->exists()) {
-            $planDates = DB::table('plans')
-                ->join('activities','activities.Plans_idPlan','=','plans.id')
-           //     ->leftjoin('activity_dates','activities.id','=','Activities_idActivities')
-               // ->select('activities.id','activities.name','activities.place','activities.created_at','activities.updated_at','activities.colour','activities.description'
-               //     ,'activity_dates.id AS activity_dates.id','activity_dates.start_date','activity_dates.end_date','activity_dates.created_at AS activity_dates.created','activity_dates.updated_at AS activity_dates.updated')
-              ->select('activities.id','activities.name','activities.place','activities.created_at','activities.updated_at','activities.colour','activities.description','activities.Plans_idPlan')
-         //       ->where('plans.Users_idUser','=',$user->id)
-                ->where('activities.Plans_idPlan','=',$planId)
-               // ->orderBy('activity_dates.start_date')
-                ->get()->toJson(JSON_PRETTY_PRINT);
-
-            return response($planDates, 200);
-        } else {
-            return response()->json([
-                "message" => "Nie znaleziono przedmiotu"
-            ], 404);
-        }
-
-    }
-*/
    public function updatePlan(Request $request,$id) {
        $activeFlag=DB::table('plans')
             ->where('id','=', $id)

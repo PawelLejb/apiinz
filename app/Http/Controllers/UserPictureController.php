@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User_picture;
 use Illuminate\Support\Facades\Storage;
-use League\Flysystem\Adapter\Ftp as FtpAdapter;
 use JWTAuth;
 use Validator;
 use DB;
@@ -27,7 +26,7 @@ class UserPictureController extends Controller
       if(User_picture::where('Users_idUser', $user->id )->exists()) {
             $user_picture = User_picture::where('Users_idUser', $user->id )->get();
             foreach($user_picture as $userPic){
-          
+
                 Storage::disk('s3')->delete(str_replace('https://elasticbeanstalk-eu-central-1-252092827841.s3.eu-central-1.amazonaws.com/','',$userPic->picUrl));
             }
 
@@ -62,7 +61,7 @@ class UserPictureController extends Controller
            $id=DB::table('user_pictures')
             ->where('Users_idUser','=',$user->id)
             ->value('id');
-        
+
             Storage::disk('s3')->delete(str_replace('https://elasticbeanstalk-eu-central-1-252092827841.s3.eu-central-1.amazonaws.com/','',$picUrl));
         if(User_picture::where('id', $id )->exists()) {
             $user_picture = User_picture::find($id);

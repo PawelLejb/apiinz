@@ -3,15 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Group_user;
-use App\Models\Group;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Post;
 use App\Models\Comment_data;
 use App\Models\Comment;
-use App\Models\Post_data;
-use App\Models\Post_tag;
 use Validator;
 use App\Groups;
 use Aws\S3\S3Client;
@@ -38,7 +32,7 @@ class CommentController extends Controller
         }
 
         $comment = Comment::create(array_merge(
-            
+
             $constant_values_array,
             $validator->validated(),
 
@@ -53,7 +47,7 @@ class CommentController extends Controller
         $comment1= array_merge(
                        $constant_values_array,
             $validator->validated());
-                              
+
         return response()->json([
             'message' => 'Utworzono komentarz!',
             'comment' => $comment1
@@ -224,7 +218,7 @@ class CommentController extends Controller
 
             return response()->json([
                      "message" => "Plik usunięty",
-               
+
             ], 202);
         } else {
             return response()->json([

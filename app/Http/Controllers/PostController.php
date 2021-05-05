@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Group_user;
-use App\Models\Group;
 use App\Models\Post;
 use App\Models\Post_data;
 use App\Models\Post_tag;
@@ -44,7 +41,7 @@ class PostController extends Controller
             'secondName' =>auth()->user()->secondName,
             'profilePic'=>auth()->user()->profilePic,
                                      'Groups_idGroup' => $groupId,
-                                     
+
         'authorId' => auth()->user()->id);
         $post1=array_merge(
             $constant_values_array,
@@ -126,10 +123,10 @@ class PostController extends Controller
         $currentUser=auth()->user()->id;
         if (Post::where('id', $postId )->exists()) {
         $userRole=DB::table('group_users')
-           
+
             ->where('Users_idUser','=', $currentUser)
             ->where('Groups_idGroup','=',$groupId)
-           
+
             ->value('role');
         if($userRole=='unverified' || $userRole==''){
             return response()->json('Nie masz uprawnień!', 400);
@@ -139,7 +136,7 @@ class PostController extends Controller
                  ->join('users','users.id','=','posts.authorId')
                 ->select('posts.id','posts.title','posts.post','posts.authorId','posts.updated_at','posts.created_at','posts.Groups_idGroup','users.profilePic','users.name','users.secondName')
                 ->where('posts.id','=',$postId)
-              
+
                 ->get()->toJson(JSON_PRETTY_PRINT);
 
             return response($post, 200);
@@ -151,7 +148,7 @@ class PostController extends Controller
 
     }
 
-   
+
      public function getAllGroupsPosts() {
         $currentUser=auth()->user()->id;
         $post = DB::table('posts')
@@ -159,7 +156,7 @@ class PostController extends Controller
              ->join('users','users.id','=','posts.authorId')
             ->join('groups','groups.id','=','posts.Groups_idGroup')
             ->select('posts.id','posts.title','posts.authorId','posts.updated_at','posts.created_at','posts.Groups_idGroup','posts.post','group_users.role','users.profilePic','users.name','users.secondName','groups.name as groupName')
-    
+
             ->where('group_users.Users_idUser','=',$currentUser)
             ->where('group_users.role','!=','unverified')
             ->orderBy('created_at')
@@ -179,9 +176,9 @@ class PostController extends Controller
         $post = DB::table('posts')
              ->join('users','users.id','=','posts.authorId')
            ->select('posts.id','posts.title','posts.authorId','posts.post','posts.updated_at','posts.created_at','posts.Groups_idGroup','users.profilePic','users.name','users.secondName')
-           
+
             ->where('Groups_idGroup','=',$groupId)
- 
+
             ->get()->toJson(JSON_PRETTY_PRINT);
 
         return response($post, 200);

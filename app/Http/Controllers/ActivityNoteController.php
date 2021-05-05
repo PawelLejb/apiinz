@@ -91,8 +91,6 @@ class ActivityNoteController extends Controller
         }
     }
 
-    //Pliki do notatek do POPRWAIENIA PAMIETAJ POTEM ZE MUSISZ ZROBIC TEZ WYSWIETLANIE SAMYCH NOTATEK
-
     public function addActivityNoteData(Request $request,$id) {
         $activity_data = new Activity_data;
         $activity_data->dataName = $request->dataName;
